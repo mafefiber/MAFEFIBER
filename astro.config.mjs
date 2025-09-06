@@ -1,6 +1,5 @@
 import { defineConfig } from 'astro/config';
-import netlify from '@astrojs/adapter-netlify';
 
 export default defineConfig({
-	adapter: netlify(),
+	// Configura aquí el adaptador que usarás (por ejemplo, static o node)
 });
