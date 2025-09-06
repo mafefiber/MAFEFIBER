@@ -1,0 +1,74 @@
+---
+const {title =  "MAFEFIBER"} = Astro.props
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpeg" href="/img/logo.jpg" />
+    <title>{title}</title>
+    <link rel="stylesheet" href="/style.css"/>
+    
+    <!-- Scripts eliminados ya que no se necesitan -->
+</head>
+<body>
+    <!-- bacjgrounds -->
+     <div class ="animated-bg"></div>
+     <div class = "energy-waves" id="waves"></div>
+     <div class="light-particles" id="light-particles"></div>
+
+     <!-- header -->
+    <header>
+
+        <nav>
+            <div class="logo">⚡ MAFEFIBER</div>
+            <ul class="nav-links">
+                <li><a href="#inicio">🏠 Inicio</a></li>
+                <li><a href="#planes">💎 Planes</a></li>
+                <li><a href="#contacto">📞 Contacto</a></li>
+                <li><a href="/contact/">🚀 Soporte</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <slot/>
+    </main>
+
+    <footer id="contacto">
+    <div class="footer-content">
+        <div class="contact-grid">
+          <div class="contact-card">
+            <div class="contact-icon">📞</div>
+            <h3>Llámanos</h3>
+            <p>+1 (555) 123-FAST</p>
+            <p>Disponible 24/7</p>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">📍</div>
+            <h3>Visítanos</h3>
+            <p>123 Tech Avenue</p>
+            <p>Cyber City, CC 12345</p>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">✉️</div>
+            <h3>Escríbenos</h3>
+            <p>hola@netspeedpro.com</p>
+            <p>Respuesta en menos de 1 hora</p>
+          </div>
+        </div>
+
+        <div class="social-links">
+          <a href="#" class="social-link">📘</a>
+          <a href="#" class="social-link">📷</a>
+          <a href="#" class="social-link">🐦</a>
+          <a href="#" class="social-link">💼</a>
+          <a href="#" class="social-link">▶️</a>
+        </div>
+
+        <p>© 2025 NetSpeed Pro - Internet del Futuro</p>
+      </div>
+    </footer>
+</body>
+</html>

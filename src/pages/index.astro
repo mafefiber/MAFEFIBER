@@ -1,11 +1,94 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Base from "../layouts/Base.astro";
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<Base title="Inicio - NetSpeed Pro">
+  <!-- Hero -->
+  <section class="hero" id="inicio">
+    <div class="hero-content">
+      <h1>Internet del Futuro</h1>
+      <p>
+        Experimenta velocidades que desafían la realidad con nuestra tecnología cuántica de fibra óptica.
+        Conecta con el mañana, hoy mismo.
+      </p>
+    </div>
+
+    <!-- Orb de velocidad (moved back into hero and placed above CTAs) -->
+    <div class="speed-showcase">
+      <div class="speed-orb">
+        <div class="orb-rings ring-1"></div>
+        <div class="orb-rings ring-2"></div>
+        <div class="orb-rings ring-3"></div>
+        <div class="speed-core">
+          <div class="rocket-container">
+            <img src="/img/rocket-158_512.gif" alt="Rocket" class="rocket">
+            <div class="thrust-particles"></div>
+          </div>
+        </div>
+      </div>
+      <p class="speed-label">Velocidad Cuántica</p>
+    </div>
+
+    <div class="cta-buttons">
+      <a href="#planes" class="cta-button cta-primary">🚀 Explorar Planes</a>
+      <a href="#contacto" class="cta-button cta-secondary">💬 Hablar con Experto</a>
+    </div>
+  </section>
+
+  <!-- Sección Planes -->
+  <section class="plans" id="planes">
+    <h2>⚡ Planes Extraordinarios</h2>
+    <div class="plans-grid">
+      <div class="plan-card">
+        <h3>🌟 Básico</h3>
+        <div class="plan-price">$39<small>/mes</small></div>
+        <div class="plan-speed">100 Mbps</div>
+        <ul class="plan-features">
+          <li>Descarga hasta 100 Mbps</li>
+          <li>Subida hasta 50 Mbps</li>
+          <li>Instalación express gratuita</li>
+          <li>Router WiFi 6 premium</li>
+          <li>Soporte 24/7 prioritario</li>
+          <li>Aplicación móvil exclusiva</li>
+        </ul>
+        <button class="plan-button">🚀 Activar Ahora</button>
+      </div>
+
+      <div class="plan-card">
+        <h3>💎 Premium</h3>
+        <div class="plan-price">$69<small>/mes</small></div>
+        <div class="plan-speed">500 Mbps</div>
+        <ul class="plan-features">
+          <li>Descarga hasta 500 Mbps</li>
+          <li>Subida hasta 300 Mbps</li>
+          <li>Instalación VIP gratuita</li>
+          <li>Router WiFi 6E gaming</li>
+          <li>IP estática dedicada</li>
+          <li>Técnico personal asignado</li>
+          <li>Streaming 4K ilimitado</li>
+          <li>Garantía uptime 99.9%</li>
+        </ul>
+        <button class="plan-button">⚡ Elegir Premium</button>
+      </div>
+
+      <div class="plan-card">
+        <h3>🚀 Ultra</h3>
+        <div class="plan-price">$99<small>/mes</small></div>
+        <div class="plan-speed">1000 Mbps</div>
+        <ul class="plan-features">
+          <li>Descarga hasta 1000 Mbps</li>
+          <li>Subida hasta 1000 Mbps</li>
+          <li>Instalación platinum gratuita</li>
+          <li>Router WiFi 6E Pro gaming</li>
+          <li>IP estática empresarial</li>
+          <li>Equipo técnico dedicado</li>
+          <li>Streaming 8K sin límites</li>
+          <li>Garantía de velocidad total</li>
+          <li>VPN empresarial incluida</li>
+          <li>Monitoreo 24/7 proactivo</li>
+        </ul>
+        <button class="plan-button">👑 Ser Ultra</button>
+      </div>
+    </div>
+  </section>
+</Base>
