@@ -1,3 +1,175 @@
+/* Enlace destacado para Maps en el footer */
+.footer-content .contact-card a.maps-link {
+  color: #00ff99;
+  font-weight: bold;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  transition: color 0.2s;
+}
+.footer-content .contact-card a.maps-link:hover {
+  color: #00e6e6;
+}
+
+/* Responsive adjustments for tablets and phones */
+@media (max-width: 992px) {
+  .nav-links {
+    gap: 0.4rem;
+    padding-right: 0.5rem;
+  }
+
+  .logo {
+    font-size: 1.1rem;
+  }
+
+  .hero .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero .hero-content p {
+    font-size: 1rem;
+  }
+
+  .speed-showcase {
+    max-width: 220px;
+  }
+
+  .plans-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .plan-card {
+    padding: 1rem;
+  }
+
+  .plan-price {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 600px) {
+  header {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999 !important;
+    width: 100vw;
+  }
+  .hamburger {
+    display: block !important;
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    z-index: 10001;
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    width: 100vw;
+    padding: 0.5rem 0;
+  }
+  .logo {
+    flex: 0 0 auto;
+  }
+  .nav-links {
+    position: fixed;
+    top: 65px;
+    right: 20px;
+    width: auto;
+    background: transparent;
+    border: none;
+    flex-direction: column;
+    gap: 15px;
+    display: flex;
+    z-index: 10000;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px) scale(0.95);
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .nav-links.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+  .nav-links a {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(25,45,65,0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: white;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .nav-links a:hover {
+    background: rgba(0,255,255,0.2);
+    transform: scale(1.1);
+  }
+  .nav-links .link-text {
+    display: none;
+  }
+  .home-float {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 10002;
+    width: 48px;
+    height: 48px;
+    font-size: 1.7em;
+    background: linear-gradient(135deg, #0ff1, #09f7, #0ff9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border: none;
+    box-shadow: 0 4px 16px rgba(0,255,255,0.18), 0 1px 8px rgba(0,0,0,0.18);
+    text-decoration: none;
+    transition: background 0.25s, transform 0.18s, box-shadow 0.18s;
+    overflow: hidden;
+  }
+  .home-float:hover {
+    background: linear-gradient(135deg, #00e6e6, #00bfff, #00e6e6);
+    transform: scale(1.09);
+    box-shadow: 0 6px 20px rgba(0,255,255,0.28), 0 2px 12px rgba(0,0,0,0.22);
+  }
+
+  html, body {
+    overflow-x: hidden !important;
+    width: 100vw;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero .hero-content h1 {
+    font-size: 1.2rem;
+  }
+
+  .hero .hero-content p {
+    font-size: 0.9rem;
+  }
+
+  .plan-price {
+    font-size: 1.3rem;
+  }
+
+  .plan-features li {
+    font-size: 0.9rem;
+  }
+}
 * {
   margin: 0;
   padding: 0;
@@ -10,6 +182,8 @@ body {
   background: #0a0a0a;
   color: white;
   padding-top: 72px; /* leave space for fixed header */
+  width: 100%;
+  max-width: 100vw;
 }
 
 /* Background animado con ondas */
@@ -117,12 +291,16 @@ header {
   position: fixed;
   top: 0;
   width: 100%;
-  padding: 1rem 2rem;
+  max-width: 100vw;
+  padding: 0.7rem 1.5rem;
   background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid rgba(0, 255, 255, 0.2);
   z-index: 9999;
   transition: all 0.3s ease;
+  box-sizing: border-box;
+  left: 0;
+  right: 0;
 }
 
 header::before {
@@ -175,21 +353,51 @@ nav {
 .nav-links {
   display: flex;
   list-style: none;
-  gap: 0.5rem;
+  gap: 1.25rem; /* more breathing room between items */
+  align-items: center;
+}
+
+/* Hamburger button (hidden on desktop, shown on mobile) */
+.hamburger {
+  display: none;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.6rem;
+  cursor: pointer;
+  z-index: 10001;
+  position: relative;
+}
+
+/* mobile: nav closed by default - .open class will reveal it */
+.nav-links.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 .nav-links a {
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.96);
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.22s ease;
   position: relative;
-  padding: 0.6rem 1.2rem;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  font-weight: 400;
-  font-size: 0.9rem;
+  padding: 0.45rem 0.8rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(6px);
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem; /* space between icon and label */
+  min-height: 40px;
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
+}
+
+.nav-links .link-text {
+  display: inline;
 }
 
 .nav-links a::before {
@@ -213,6 +421,19 @@ nav {
   border-color: rgba(0, 255, 255, 0.6);
   text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
   transform: translateY(-1px);
+}
+
+/* Add some breathing room between logo and nav links */
+.logo { margin-right: 0.6rem; }
+
+/* Desktop: hide hamburger */
+.hamburger { display: none; }
+
+/* Tweak icon sizing (emojis or SVG) inside nav links */
+.nav-links a img,
+.nav-links a svg {
+  width: 18px;
+  height: 18px;
 }
 
 /* Hero Section Epic */
@@ -915,6 +1136,10 @@ nav {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  /* keep orb in document flow under CTAs, increase size to fill space */
+  .speed-showcase { display: block; position: relative; right: auto; top: auto; z-index: 2; pointer-events: auto; margin-top: 6px; margin-bottom: 0; }
+  .speed-orb { width: 320px; height: 320px; margin: 0.2rem auto 0.2rem; }
+
 }
 
 .plan-price {
@@ -1075,42 +1300,164 @@ footer {
   box-shadow: 0 10px 25px rgba(0, 255, 255, 0.4);
 }
 
-/* Responsive Design */
+/* Responsive Design: improved mobile layout */
 @media (max-width: 768px) {
-  .hero h1 {
-    font-size: 3rem;
+  .hero h1 { font-size: 1.6rem; }
+  .hero p { font-size: 0.95rem; }
+
+  /* reduce bottom padding so orb can occupy more vertical space */
+  .hero { padding: 1rem 1rem 1.6rem; }
+
+  .plans-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; padding: 0.5rem; }
+
+  /* make the orb take most of the remaining viewport space */
+  .speed-showcase { display: block; position: relative; right: auto; top: auto; z-index: 2; pointer-events: auto; margin-top: 6px; margin-bottom: 0; min-height: 46vh; }
+  /* use viewport width to fill space but cap with max values */
+  .speed-orb { width: 86vw; height: 86vw; max-width: 420px; max-height: 420px; margin: 0.2rem auto 0.2rem; }
+
+  /* rocket scales inside the orb */
+  .rocket-container { width: 84%; height: 84%; max-width: 380px; max-height: 380px; }
+  .rocket { width: 92%; height: 92%; }
+  .thrust-particles { left: -50%; width: 360px; }
+
+  .plan-card { padding: 1rem; }
+  .plan-button, .cta-button { width: 100%; }
+
+  .cta-buttons { width: 94%; margin: 0.4rem auto; }
+  .cta-button { padding: 12px 16px; font-size: 1rem; border-radius: 28px; }
+
+  /* Mobile navigation - hamburger menu */
+  .hamburger {
+    display: block;
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    z-index: 10001;
   }
 
-  .hero p {
-    font-size: 1.1rem;
-  }
-
+  /* Mobile sidebar navigation - slides from RIGHT */
   .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80px;
+    height: 100vh;
+    background: rgba(0, 20, 40, 0.95);
+    backdrop-filter: blur(15px);
+    border-left: 1px solid rgba(0, 255, 255, 0.2);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    transition: right 0.3s ease;
+    z-index: 10000;
+    overflow: hidden;
+  }
+
+  /* Show sidebar when open - slides in from right */
+  .nav-links.open {
+    right: 0;
+  }
+
+  /* Reset ALL desktop styles for mobile */
+  .nav-links li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .nav-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 24px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .nav-links .link-text {
     display: none;
   }
 
-  .plans h2 {
-    font-size: 2.5rem;
+  /* Remove all desktop pseudo-elements */
+  .nav-links a::before,
+  .nav-links a::after {
+    display: none;
   }
 
-  .cta-buttons {
-    flex-direction: column;
-    align-items: center;
+  .nav-links a:hover {
+    background: rgba(0, 255, 255, 0.2);
+    border-color: rgba(0, 255, 255, 0.5);
+    transform: scale(1.05);
   }
 
-  .contact-grid {
-    grid-template-columns: 1fr;
+  .plans h2 { font-size: 2rem; }
+
+  .cta-buttons { width: 92%; margin: 0 auto; gap: 10px; flex-direction: column; }
+  .cta-button { width: 100%; box-sizing: border-box; display: inline-flex; justify-content: center; }
+
+  .contact-grid { grid-template-columns: 1fr; }
+
+  /* orb smaller but still prominent */
+  .speed-orb { width: 180px; height: 180px; }
+}
+
+@media (max-width: 520px) {
+  .hero h1 { font-size: 1.6rem; }
+  .hero p { font-size: 0.95rem; }
+
+  .plans-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; padding: 0.5rem; }
+
+  /* keep orb in document flow under CTAs, increase size for visibility */
+  .speed-showcase { display: block; position: relative; right: auto; top: auto; z-index: 2; pointer-events: auto; margin-top: 6px; margin-bottom: 4px; }
+  .speed-orb { width: 280px; height: 280px; margin: 0.4rem auto; }
+
+  /* enlarge rocket and its container on small screens */
+  .rocket-container { width: 220px; height: 220px; }
+  .rocket { width: 90%; height: 90%; }
+  .thrust-particles { left: -60%; width: 260px; }
+
+  .plan-card { padding: 1rem; }
+  .plan-button, .cta-button { width: 100%; }
+
+  .cta-buttons { width: 94%; margin: 0.4rem auto; }
+  .cta-button { padding: 12px 16px; font-size: 1rem; border-radius: 28px; }
+
+  /* Mobile sidebar - narrower on small screens */
+  .nav-links {
+    width: 70px;
   }
 
-  .speed-orb {
-    width: 90px;
-    height: 90px;
+  .nav-links a {
+    width: 55px;
+    height: 55px;
+    font-size: 12px;
+    line-height: 55px;
   }
 }
 
-/* Hide decorative orb on very small screens to avoid overlap */
-@media (max-width: 520px) {
-  .speed-showcase {
+@media (max-width: 600px) {
+  .logo-emoji {
+    display: inline;
+    font-size: 1.5em;
+    margin-left: 0.3em;
+    vertical-align: middle;
+  }
+}
+@media (min-width: 601px) {
+  .logo-emoji {
     display: none;
   }
 }
