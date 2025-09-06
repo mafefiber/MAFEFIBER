@@ -11,6 +11,6 @@
   },
   "dependencies": {
   "astro": "^5.13.5",
-  "@astrojs/adapter-node": "^4.0.0"
+  "@astrojs/adapter-node": "https://github.com/withastro/astro.git#packages/adapter-node"
   }
 }
