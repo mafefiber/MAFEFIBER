@@ -10,7 +10,7 @@
     "start": "node ./dist/server/entry.mjs"
   },
   "dependencies": {
-    "@astrojs/node": "^9.4.3",
+  "@astrojs/netlify": "^8.2.7",
     "astro": "^5.13.5",
     "lodash": "^4.17.21"
   }
