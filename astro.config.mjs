@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
-import node from '@astrojs/adapter-node';
+import node from '@astrojs/node';
 
 export default defineConfig({
-	adapter: node(),
+  adapter: node(),
 });

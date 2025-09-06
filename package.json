@@ -3,14 +3,15 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-  "dev": "astro dev",
-  "build": "astro build",
-  "preview": "astro preview",
-  "astro": "astro",
-  "start": "node ./dist/server/entry.mjs"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "start": "node ./dist/server/entry.mjs"
   },
   "dependencies": {
-  "astro": "^5.13.5",
-  "@astrojs/adapter-node": "https://github.com/withastro/astro.git#packages/adapter-node"
+    "@astrojs/node": "^9.4.3",
+    "astro": "^5.13.5",
+    "lodash": "^4.17.21"
   }
 }
