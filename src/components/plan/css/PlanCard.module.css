@@ -1,0 +1,290 @@
+/* Plan card — diseño y animaciones */
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseIcon {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  margin: 0;
+  width: 100%;
+  max-width: 100vw;
+  overflow: visible;
+  padding: 10px 5px;
+}
+
+.card {
+  background: linear-gradient(135deg, rgba(26,0,51,0.8) 0%, rgba(0,13,26,0.8) 100%);
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid rgba(0,230,230,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  min-height: 200px;
+  backdrop-filter: blur(10px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  animation: cardAppear 0.6s ease-out;
+  margin: 5px;
+  will-change: transform;
+  z-index: 1;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0,230,230,0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(0,230,230,0.6);
+  box-shadow: 0 10px 25px rgba(0,230,230,0.2);
+}
+
+.card:hover::before {
+  left: 100%;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .plans-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    padding: 0 10px;
+  }
+  
+  .card {
+    padding: 20px 16px;
+    min-height: 280px;
+  }
+  
+  .card .speed {
+    font-size: 2rem;
+  }
+  
+  .card h3 {
+    font-size: 1.7rem;
+  }
+  
+  .card .desc {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .plans-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 0 15px;
+    width: 100%;
+    margin: 0 auto;
+    overflow: visible;
+  }
+  
+  .card {
+    padding: 20px 16px;
+    min-height: auto;
+    margin: 5px auto;
+    max-width: calc(100vw - 50px);
+    width: 100%;
+    z-index: 1;
+  }
+  
+  .card .speed {
+    font-size: 1.8rem;
+  }
+  
+  .card h3 {
+    font-size: 1.6rem;
+  }
+  
+  .card .desc {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+  
+  .card .activate-btn {
+    padding: 14px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Velocidad y precio */
+.card h3 {
+  font-size: 2rem;
+  color: #00e6e6;
+  font-weight: 600;
+  margin: 0;
+  transition: color 0.3s ease;
+  text-align: center;
+}
+
+.card h4 {
+  font-size: 1.2rem;
+  color: #ffffff;
+  font-weight: 500;
+  margin: 0;
+  text-align: center;
+}
+
+.card .speed {
+  font-size: 2.5rem;
+  color: #00e6e6;
+  font-weight: 600;
+  margin: 0;
+  transition: color 0.3s ease;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.speedIcon {
+  color: #00fff7;
+  animation: pulseIcon 2s infinite ease-in-out;
+  display: inline-block;
+}
+
+.card:hover h3,
+.card:hover .speed {
+  color: #00fff7;
+}
+
+/* Lista de características sin numeración */
+.card .features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.card .features li {
+  color: #b3e6ff;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  padding-left: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card .desc {
+  color: #b3e6ff;
+  font-size: 0.95rem;
+  margin: 15px 0;
+  line-height: 1.5;
+  text-align: left;
+  font-style: italic;
+}
+
+/* Botón de activar */
+.card .activate-btn {
+  background: linear-gradient(45deg, #00e6e6, #00fff7);
+  color: #001122;
+  padding: 14px 20px;
+  border-radius: 25px;
+  border: 2px solid #00fff7;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-top: auto;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(0,230,230,0.3);
+}
+
+.card .activate-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transition: left 0.5s ease;
+}
+
+.card .activate-btn:hover {
+  background: linear-gradient(45deg, #00fff7, #00e6e6);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,255,255,0.5);
+  border-color: #ffffff;
+}
+
+.card .activate-btn:hover::before {
+  left: 100%;
+}
+
+/* Price badge */
+.card .price {
+  margin-top: 10px;
+  font-weight: 700;
+  color: #0b84ff;
+}
+
+/* Small metadata row */
+.card small {
+  color: #6b7280;
+  display: block;
+  margin-top: 6px;
+}
+
+/* Buttons area when used in admin list (keeps layout) */
+.plan-row button {
+  background: transparent;
+  border: 1px solid #e6e8ee;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.plan-row button:hover { opacity: 0.95; }
+
+/* Subtle shimmer for featured (optional class) */
+.card.featured {
+  background: linear-gradient(90deg, #fff9f0, #ffffff);
+  border: 1px solid rgba(255,200,120,0.18);
+}
+
+/* Entrance animation */
+@keyframes cardFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .card { padding: 12px; }
+  .plans-grid { gap: 12px; }
+}

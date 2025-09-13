@@ -1,5 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
+import PlanList from "../components/plan/PlanList";
+
 ---
 
 <Base title="Inicio - MafeFiber">
@@ -38,48 +40,6 @@ import Base from "../layouts/Base.astro";
   <!-- Sección Planes -->
   <section class="plans" id="planes">
     <h2>⚡ Planes Extraordinarios</h2>
-    <div class="plans-grid">
-      <div class="plan-card">
-          <h3>🌟 100 Mbps</h3>
-          <div class="plan-price">S/ 50<small>/mes</small></div>
-          <div class="plan-speed">100 megabits</div>
-          <ul class="plan-features">
-            <li>Fibra óptica dedicada</li>
-            <li>Internet dedicado</li>
-            <li>Instalación gratuita</li>
-            <li>Router WiFi incluido</li>
-             <li>Soporte técnico: lunes a sábado de 8am a 6pm</li>
-          </ul>
-          <a href="https://wa.me/51956025773?text=Buenos%20d%C3%ADas%2C%20revis%C3%A9%20su%20p%C3%A1gina%20web%20y%20estoy%20interesado%20en%20contratar%20el%20servicio%20de%20internet%2C%20espec%C3%ADficamente%20el%20plan%20de%20100%20Mbps%20por%2050%20soles.%20%C2%BFMe%20pueden%20indicar%20el%20proceso%3F" target="_blank" rel="noopener" class="plan-button">🚀 Activar 100 Mbps</a>
-      </div>
-
-      <div class="plan-card">
-          <h3>💎 200 Mbps</h3>
-          <div class="plan-price">S/ 60<small>/mes</small></div>
-          <div class="plan-speed">200 megabits</div>
-          <ul class="plan-features">
-            <li>Fibra óptica dedicada</li>
-            <li>Internet dedicado</li>
-            <li>Instalación gratuita</li>
-            <li>Router WiFi incluido</li>
-             <li>Soporte técnico: lunes a sábado de 8am a 6pm</li>
-          </ul>
-          <a href="https://wa.me/51956025773?text=Buenos%20d%C3%ADas%2C%20revis%C3%A9%20su%20p%C3%A1gina%20web%20y%20estoy%20interesado%20en%20contratar%20el%20servicio%20de%20internet%2C%20espec%C3%ADficamente%20el%20plan%20de%20200%20Mbps%20por%2060%20soles.%20%C2%BFMe%20pueden%20indicar%20el%20proceso%3F" target="_blank" rel="noopener" class="plan-button">⚡ Activar 200 Mbps</a>
-      </div>
-
-      <div class="plan-card">
-          <h3>🚀 300 Mbps</h3>
-          <div class="plan-price">S/ 80<small>/mes</small></div>
-          <div class="plan-speed">300 megabits</div>
-          <ul class="plan-features">
-            <li>Fibra óptica dedicada</li>
-            <li>Internet dedicado</li>
-            <li>Instalación gratuita</li>
-            <li>Router WiFi incluido</li>
-             <li>Soporte técnico: lunes a sábado de 8am a 6pm</li>
-          </ul>
-          <a href="https://wa.me/51956025773?text=Buenos%20d%C3%ADas%2C%20revis%C3%A9%20su%20p%C3%A1gina%20web%20y%20estoy%20interesado%20en%20contratar%20el%20servicio%20de%20internet%2C%20espec%C3%ADficamente%20el%20plan%20de%20300%20Mbps%20por%2080%20soles.%20%C2%BFMe%20pueden%20indicar%20el%20proceso%3F" target="_blank" rel="noopener" class="plan-button">👑 Activar 300 Mbps</a>
-      </div>
-    </div>
+    <PlanList client:load />
   </section>
 </Base>

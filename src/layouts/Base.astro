@@ -6,7 +6,7 @@ const {title =  "MAFEFIBER"} = Astro.props
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="imag  e/jpeg" href="/img/logo.jpg" />
+ <link rel="icon" type="image/png" sizes="192x192" href="/img/logofinal.png">
     <title>{title}</title>
     <link rel="stylesheet" href="/style.css"/>
     
@@ -23,7 +23,6 @@ const {title =  "MAFEFIBER"} = Astro.props
 
         <nav>
             <div class="logo">⚡ MAFEFIBER</div>
-            <a href="/" class="home-float" aria-label="Ir a inicio">🏠</a>
             <ul class="nav-links">
                 <li><a href="#inicio">🏠 Inicio</a></li>
                 <li><a href="#planes">💎 Planes</a></li>
@@ -46,25 +45,31 @@ const {title =  "MAFEFIBER"} = Astro.props
             <p>Disponible 8am a 11pm</p>
           </div>
           <div class="contact-card">
-            <div class="contact-icon">📍</div>
-            <h3>Visítanos</h3>
-            <p>Calle Nicolas de Pierola, Ica, Perú</p>
-            <p><a href="https://maps.app.goo.gl/2ZxHFx2htvnsKoHEA" target="_blank" rel="noopener" class="maps-link">Ver en Maps</a></p>
-          </div>
-          <div class="contact-card">
             <div class="contact-icon">✉️</div>
             <h3>Escríbenos</h3>
             <p>ameesber@hotmail.com</p>
             <p>Respuesta en menos de 1 hora</p>
           </div>
-            <div class="contact-card">
-              <div class="contact-icon">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width:32px;height:32px;vertical-align:middle;" />
-              </div>
-              <h3>WhatsApp</h3>
-              <p><a href="https://wa.me/51956025773?text=Buenas%2C%20le%20escribo%20porque%20vi%20su%20p%C3%A1gina%20y%20estoy%20interesado%20en%20contratar%20su%20servicio" target="_blank" rel="noopener" class="maps-link">Escríbenos por WhatsApp</a></p>
-              <p>Atención rápida</p>
+          <div class="contact-card">
+            <div class="contact-icon">🌐</div>
+            <h3>Síguenos en nuestras redes</h3>
+            <div class="social-icons">
+              <a href="https://www.facebook.com/profile.php?id=61580218216883" target="_blank" rel="noopener" class="social-circle" aria-label="Facebook">
+                <span>f</span>
+              </a>
+              <a href="https://www.tiktok.com/@mafefiber" target="_blank" rel="noopener" class="social-circle" aria-label="TikTok" style="font-family: Arial, sans-serif;">
+                <span>♪</span>
+              </a>
             </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width:32px;height:32px;vertical-align:middle;" />
+            </div>
+            <h3>WhatsApp</h3>
+            <p><a href="https://wa.me/51956025773?text=Buenas%2C%20le%20escribo%20porque%20vi%20su%20p%C3%A1gina%20y%20estoy%20interesado%20en%20contratar%20su%20servicio" target="_blank" rel="noopener" class="maps-link">Escríbenos por WhatsApp</a></p>
+            <p>Atención rápida</p>
+          </div>
         </div>
         <p>© 2025 MAFEFIBER - Fibra Sin Límites</p>
       </div>

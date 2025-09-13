@@ -1,3 +1,32 @@
+/* Estilos para redes sociales */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.social-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #41c7e2 0%, #b659f8 100%);
+  color: #fff;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,230,230,0.2);
+}
+
+.social-circle:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0,230,230,0.3);
+}
+
 /* Enlace destacado para Maps en el footer */
 .footer-content .contact-card a.maps-link {
   color: #00ff99;

@@ -1,11 +1,8 @@
 ---
-import Base from "../layouts/Base.astro"
-import PlanCard from "../components/planCard.astro"
+import Base from "../layouts/Base.astro";
+import PlanList from "../components/plan/PlanList";
 ---
-
 <Base title="Planes de internet - Mafenet">
-    <h2>Nustros planes</h2>
-    <PlanCard nombre = "Plan basico" velocidad = "50 mbps" precio = "59.90" />
-    <PlanCard nombre = "Plan familiar" velocidad = "100 mbps" precio = "89.90" />
-    <PlanCard nombre = "Plan empresarial" velocidad = "200 mbps" precio = "149.40" />
+  <h2>Nuestros planes</h2>
+  <PlanList client:load />
 </Base>
