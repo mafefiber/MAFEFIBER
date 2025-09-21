@@ -14,24 +14,27 @@ export default function RegisterForm() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        console.log("Submit ejecutado");
         setLoading(true);
         setError("");
         setSuccess("");
 
         try {
+            console.log("Enviando datos:", { username, email, password, full_name: fullName });
             const response = await axios.post(`${API_BASE}/auth/register`, {
                 username,
                 email,
                 password,
                 full_name: fullName,
             });
-
+            console.log("Respuesta de registro:", response);
             setSuccess("Cuenta creada exitosamente. Ahora puedes iniciar sesión.");
             setUsername("");
             setEmail("");
             setPassword("");
             setFullName("");
         } catch (err: any) {
+            console.error("Error al crear la cuenta:", err);
             setError(err?.response?.data?.error || "Error al crear la cuenta");
         } finally {
             setLoading(false);
