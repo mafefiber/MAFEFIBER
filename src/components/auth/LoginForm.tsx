@@ -35,16 +35,21 @@ export default function LoginForm() {
                 password:password
             });
 
-            //guardar el token
             localStorage.setItem('token', response.data.token);
+            localStorage.setItem('user', JSON.stringify(response.data.user));   
 
-            //redirigir al panel de admisnitracion
-            window.location.href = '/admin';
+            // Redirige según el tipo de usuario
+            if (response.data.user.id_admin) {
+                window.location.href = '/admin';
+            } else {
+                window.location.href = '/'; // O la página principal del cliente
+            }
 
-        }catch(err:any){
+        } catch(err:any) {
             setError(err?.response?.data?.error || 'Error al iniciar sesión');
+        }
 
-        }finally{
+        finally{
             setLoading(false);
         }
     };
@@ -90,6 +95,7 @@ export default function LoginForm() {
             </button>
             <div className={styles.authLinks}>
                 <a href="/forgot-password">¿Olvidaste tu contraseña?</a>
+             <a href="/register">Registrarse</a> {/* Enlace agregado */}
             </div> 
         </form>
     </div>        

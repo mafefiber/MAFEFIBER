@@ -1,343 +1,310 @@
-/* EditarPlan.module.css */
-
+/* Main container */
 .adminContainer {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
-  color: #fff;
-}
-
-.adminTitle {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-  color: #fff;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.iconAdmin, .iconList {
-  font-size: 1.5em;
-  margin-right: 8px;
-}
-
-.formCard {
-  background: linear-gradient(135deg, rgba(26,0,51,0.85) 0%, rgba(0,13,26,0.85) 100%);
+  padding: 2rem;
+  background: linear-gradient(135deg, #181c2f 0%, #23243a 50%, #0a0a0a 100%); /* Gradiente oscuro más elegante */
+  color: #ffffff; /* Texto más brillante para mejor contraste */
+  min-height: 100vh;
   border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 2rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(0,230,230,0.3);
-  backdrop-filter: blur(10px);
 }
 
+/* Form Title */
 .formTitle {
-  font-size: 1.5rem;
-  margin-top: 0;
+  font-size: 1.8rem;
+  font-weight: 600;
   margin-bottom: 1.5rem;
-  color: #00e6e6;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+  background: linear-gradient(to right, #3498db, #2ecc71); /* Blue-to-green gradient title */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-.errorMessage {
-  background-color: rgba(220, 20, 60, 0.3);
-  color: #fff;
-  padding: 12px 16px;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  border-left: 4px solid #ff1a4b;
-  font-weight: 500;
-}
-
+/* Form */
 .planForm {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .formGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
 }
 
 .formGroup {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 0.5rem;
 }
 
 .formGroup label {
   font-size: 0.9rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.9);
-  margin-left: 4px;
+  color: #b0b0b0;
 }
 
-.formInput, .formTextarea {
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(0, 230, 230, 0.3);
+.formInput,
+.formTextarea {
+  padding: 0.75rem;
+  border: 1px solid #444;
   border-radius: 8px;
-  padding: 10px 14px;
-  color: #fff;
+  background: linear-gradient(180deg, #34495e 0%, #2c3e50 100%); /* Dark input gradient */
+  color: #e0e0e0;
   font-size: 1rem;
-  transition: all 0.3s ease;
-  width: 100%;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.formInput:focus, .formTextarea:focus {
+.formInput:focus,
+.formTextarea:focus {
   outline: none;
-  border-color: #00e6e6;
-  box-shadow: 0 0 0 2px rgba(0, 230, 230, 0.3);
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
 }
 
 .formTextarea {
   resize: vertical;
-  min-height: 100px;
+  min-height: 80px;
 }
 
 .formActions {
   display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 10px;
+  gap: 1rem;
+  justify-content: flex-start;
 }
 
-.btn {
-  padding: 10px 20px;
+.formButton {
+  padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.btnPrimary {
-  background: linear-gradient(90deg, #00e6e6, #00bfff);
-  color: #000;
-}
-
-.btnPrimary:hover {
-  background: linear-gradient(90deg, #00fff7, #00cfff);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 230, 230, 0.4);
-}
-
-.btnSecondary {
-  background: rgba(255, 255, 255, 0.15);
+  background: linear-gradient(90deg, #3498db 0%, #2ecc71 100%); /* Blue-to-green gradient button */
   color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: transform 0.2s ease, opacity 0.3s ease;
 }
 
-.btnSecondary:hover {
-  background: rgba(255, 255, 255, 0.25);
+.formButton:hover {
+  opacity: 0.9;
   transform: translateY(-2px);
 }
 
-.sectionTitle {
-  font-size: 1.5rem;
-  margin: 2rem 0 1.5rem;
-  color: #fff;
-  display: flex;
-  align-items: center;
+.formButton:nth-child(2) {
+  background: linear-gradient(90deg, #7f8c8d 0%, #95a5a6 100%); /* Gray gradient for secondary button */
 }
 
-.planListSection {
-  margin-top: 2rem;
+.formButton:disabled {
+  background: linear-gradient(90deg, #555 0%, #444 100%) !important;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
-.loading, .emptyList {
-  background: rgba(0, 0, 0, 0.2);
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  font-style: italic;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.planList {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  margin-top: 1rem;
-}
-
-.planCard {
-  background: linear-gradient(135deg, rgba(0,10,20,0.75) 0%, rgba(0,20,40,0.75) 100%);
-  border-radius: 10px;
-  border: 1px solid rgba(0, 230, 230, 0.2);
-  overflow: hidden;
-  transition: all 0.3s ease;
-  display: flex;
-  flex-direction: column;
-}
-
-.planCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-  border-color: rgba(0, 230, 230, 0.5);
-}
-
-.planContent {
-  padding: 20px;
-  flex-grow: 1;
-}
-
-.planHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.planName {
-  font-size: 1.25rem;
-  margin: 0;
-  color: #fff;
-}
-
-.planSpeed {
-  background: linear-gradient(90deg, #00e6e6, #00bfff);
-  color: #000;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-.planPrice {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #00e6e6;
-  margin: 8px 0;
-}
-
-.planDetail {
-  font-size: 0.9rem;
-  margin: 6px 0;
-  color: rgba(255, 255, 255, 0.85);
-}
-
-.planDetail span {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.planDescription {
-  margin-top: 12px;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
-  font-style: italic;
-  line-height: 1.4;
-  border-left: 3px solid rgba(0, 230, 230, 0.3);
-  padding-left: 10px;
-}
-
-.planActions {
-  display: flex;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.btnEdit, .btnDelete {
-  flex: 1;
-  padding: 12px;
-  justify-content: center;
-  border-radius: 0;
-}
-
-.btnEdit {
-  background-color: rgba(0, 230, 230, 0.1);
-  color: #00e6e6;
-}
-
-.btnEdit:hover {
-  background-color: rgba(0, 230, 230, 0.2);
-}
-
-.btnDelete {
-  background-color: rgba(220, 20, 60, 0.1);
-  color: #ff6b81;
-}
-
-.btnDelete:hover {
-  background-color: rgba(220, 20, 60, 0.2);
-}
-
-/* Loader animation */
-.loader {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 3px solid rgba(0, 230, 230, 0.3);
-  border-radius: 50%;
-  border-top-color: #00e6e6;
-  animation: spin 1s ease-in-out infinite;
-  margin-right: 10px;
-}
-
+/* Loader */
 .actionLoader {
   position: relative;
   pointer-events: none;
 }
 
-.actionLoader::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 8px;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.actionLoader::after {
-  content: '';
-  position: absolute;
-  top: calc(50% - 15px);
-  left: calc(50% - 15px);
-  width: 30px;
-  height: 30px;
-  border: 3px solid rgba(0, 230, 230, 0.3);
+.actionLoader .loader {
+  border: 3px solid #e0e0e0;
+  border-top: 3px solid #3498db;
   border-radius: 50%;
-  border-top-color: #00e6e6;
-  animation: spin 1s ease-in-out infinite;
-  z-index: 2;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-right: 0.5rem;
 }
 
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-/* Responsive */
+/* Error Message */
+.errorMessage {
+  background: linear-gradient(90deg, #e74c3c 0%, #c0392b 100%); /* Red gradient error */
+  color: #fff;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+/* Plan List Section */
+.planListSection {
+  margin-top: 2rem;
+}
+
+.sectionTitle {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(to right, #3498db, #2ecc71); /* Blue-to-green gradient */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.iconList {
+  font-size: 1.5rem;
+}
+
+/* Loading and Empty States */
+.loading,
+.emptyList {
+  text-align: center;
+  padding: 1.5rem;
+  background: linear-gradient(180deg, #34495e 0%, #2c3e50 100%); /* Dark gradient */
+  border-radius: 8px;
+  color: #b0b0b0;
+}
+
+/* Plan List */
+.planList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%); /* Dark card gradient */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.planName {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #e0e0e0;
+}
+
+.planSpeed {
+  font-size: 1rem;
+  background: linear-gradient(to right, #3498db, #2ecc71); /* Blue-to-green gradient */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.planPrice {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #e0e0e0;
+}
+
+.planDetail {
+  font-size: 0.9rem;
+  color: #b0b0b0;
+}
+
+.planDetail span {
+  font-weight: 500;
+  color: #e0e0e0;
+}
+
+.planDescription {
+  font-size: 0.9rem;
+  color: #b0b0b0;
+  line-height: 1.4;
+}
+
+.cardActions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btn {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.3s ease;
+}
+
+.btnEdit {
+  background: linear-gradient(90deg, #3498db 0%, #2ecc71 100%); /* Blue-to-green gradient */
+  color: #fff;
+}
+
+.btnEdit:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.btnDelete {
+  background: linear-gradient(90deg, #e74c3c 0%, #c0392b 100%); /* Red gradient */
+  color: #fff;
+}
+
+.btnDelete:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.btn:disabled {
+  background: linear-gradient(90deg, #555 0%, #444 100%) !important;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
+  .adminContainer {
+    padding: 1rem;
+  }
+
   .formGrid {
     grid-template-columns: 1fr;
   }
-  
+
+  .formTitle,
+  .sectionTitle {
+    font-size: 1.5rem;
+  }
+
   .planList {
     grid-template-columns: 1fr;
   }
-  
-  .formActions {
+}
+
+@media (max-width: 480px) {
+  .formActions,
+  .cardActions {
     flex-direction: column;
+    gap: 0.5rem;
   }
-  
+
+  .formButton,
   .btn {
     width: 100%;
   }

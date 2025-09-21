@@ -1,0 +1,221 @@
+/* =======================================================
+   CYBERPUNK STYLE - Fondo oscuro con animación
+   ======================================================= */
+
+/* === FONDO CYBERPUNK === */
+.cyberpunk-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e1e2f, #2c2c3e, #3a3a4f);
+  background-size: 400% 400%;
+  animation: gradientAnimation 12s ease infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes gradientAnimation {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* =======================================================
+   HEADER
+   ======================================================= */
+.header-glow {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.section-title {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #ff00ff;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.glitch-text {
+  position: relative;
+  color: #0ff;
+  text-shadow: 0 0 5px #0ff,
+               0 0 10px #ff00ff,
+               0 0 20px #0ff;
+  animation: glitch 1s infinite;
+}
+
+@keyframes glitch {
+  0%   { text-shadow: 2px 2px #ff00ff, -2px -2px #00fff7; }
+  20%  { text-shadow: -2px -2px #ff00ff, 2px 2px #00fff7; }
+  40%  { text-shadow: 2px -2px #ff00ff, -2px 2px #00fff7; }
+  60%  { text-shadow: -2px 2px #ff00ff, 2px -2px #00fff7; }
+  80%  { text-shadow: 2px 2px #ff00ff, -2px -2px #00fff7; }
+  100% { text-shadow: none; }
+}
+
+.subtitle {
+  color: #ccc;
+  font-size: 1.2rem;
+}
+
+/* =======================================================
+   GRID DE PRODUCTOS
+   ======================================================= */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* =======================================================
+   CARD DE PRODUCTOS
+   ======================================================= */
+.product-card {
+  background: rgba(15, 15, 30, 0.9);
+  border-radius: 15px;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.3),
+              0 0 40px rgba(0, 255, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 0 30px #ff00ff, 0 0 60px #00fff7;
+  border-color: #ff00ff;
+}
+
+.product-image {
+  width: 100%;
+  height: 220px;
+  object-fit: contain; /* 👈 asegura que no se corte */
+  background: #111; /* para que no se vea raro si la img no llena todo */
+  padding: 10px;
+}
+
+.product-content {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.product-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #00fff7;
+  margin-bottom: 0.5rem;
+}
+
+.product-description {
+  font-size: 1rem;
+  color: #ddd;
+  margin-bottom: 1rem;
+}
+
+.specs-list {
+  margin: 1rem 0;
+  padding: 0;
+  list-style: none;
+  color: #ccc;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.spec-item {
+  margin-bottom: 0.5rem;
+}
+
+.price-section {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #ff00ff;
+  margin: 1rem 0;
+}
+
+/* =======================================================
+   BOTONES
+   ======================================================= */
+.product-button {
+  width: 100%;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  position: relative;
+  background: linear-gradient(90deg, #ff00ff, #00fff7, #ff00ff);
+  background-size: 300%;
+  animation: glowmove 5s linear infinite;
+  overflow: hidden;
+}
+
+@keyframes glowmove {
+  0%   { background-position: 0%; }
+  100% { background-position: 300%; }
+}
+
+.button-scan {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: skewX(-20deg);
+  animation: scan 2s infinite;
+}
+
+@keyframes scan {
+  0%   { left: -100%; }
+  50%  { left: 100%; }
+  100% { left: 100%; }
+}
+
+/* =======================================================
+   EFECTO BORDE
+   ======================================================= */
+.card-border {
+  position: absolute;
+  inset: 0;
+  border: 2px solid rgba(0, 255, 255, 0.5);
+  border-radius: 15px;
+  pointer-events: none;
+}
+
+/* Miniaturas */
+.gallery-thumbs {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.gallery-thumbs .thumb {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, border 0.2s ease;
+  background: #111;
+}
+
+.gallery-thumbs .thumb:hover {
+  transform: scale(1.1);
+  border-color: #00fff7;
+}
+
+.gallery-thumbs .thumb.active {
+  border-color: #ff00ff;
+  box-shadow: 0 0 10px #ff00ff;
+}

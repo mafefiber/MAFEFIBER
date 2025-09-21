@@ -1,8 +1,13 @@
 ---
 import Base from "../../../layouts/Base.astro";
 import EditarPlan from "../../../components/plan/editarPlan";
+import AdminLayout from "../../../layouts/AdminLayout.astro";
+import PlanCard from "../../../components/plan/PlanCard";
+import PlanList from "../../../components/plan/PlanList";
+import AdminGuard from "../../../components/admin/AdminGuard";
 ---
-<Base title="Admin - Planes">
-  <h2>Panel administrativo — Planes</h2>
-  <EditarPlan client:load />
-</Base>
+<AdminLayout title="Admin - Planes">
+  <AdminGuard client:load>
+    <EditarPlan client:load />
+  </AdminGuard>
+</AdminLayout>

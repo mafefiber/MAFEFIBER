@@ -102,100 +102,94 @@ const EditarPlan: React.FC = () => {
 
   return (
     <div className={styles.adminContainer}>
-      <h2 className={styles.adminTitle}>
-        <span className={styles.iconAdmin}>⚙️</span> Panel de Administración
-      </h2>
+      <h3 className={styles.formTitle}>
+        {editingId ? "✏️ Editar plan" : "✨ Crear nuevo plan"}
+      </h3>
+      
+      {error && <div className={styles.errorMessage}>{error}</div>}
 
-      <div className={styles.formCard}>
-        <h3 className={styles.formTitle}>
-          {editingId ? "✏️ Editar plan" : "✨ Crear nuevo plan"}
-        </h3>
-        
-        {error && <div className={styles.errorMessage}>{error}</div>}
-
-        <form onSubmit={savePlan} className={styles.planForm}>
-          <div className={styles.formGrid}>
-            <div className={styles.formGroup}>
-              <label htmlFor="name">Nombre del plan</label>
-              <input 
-                id="name"
-                value={name} 
-                onChange={e => setName(e.target.value)} 
-                placeholder="Ej: Plan Fibra Hogar"
-                className={styles.formInput}
-              />
-            </div>
-
-            <div className={styles.formGroup}>
-              <label htmlFor="speed">Velocidad (Mbps)</label>
-              <input 
-                id="speed"
-                type="number" 
-                value={speed as any} 
-                onChange={e => setSpeed(e.target.value === "" ? "" : Number(e.target.value))} 
-                placeholder="Ej: 300"
-                className={styles.formInput}
-              />
-            </div>
-
-            <div className={styles.formGroup}>
-              <label htmlFor="price">Precio (S/)</label>
-              <input 
-                id="price"
-                type="number" 
-                step="0.01" 
-                value={price as any} 
-                onChange={e => setPrice(e.target.value === "" ? "" : Number(e.target.value))}
-                placeholder="Ej: 79.90" 
-                className={styles.formInput}
-              />
-            </div>
-
-            <div className={styles.formGroup}>
-              <label htmlFor="technology">Tecnología</label>
-              <input 
-                id="technology"
-                value={technology} 
-                onChange={e => setTechnology(e.target.value)} 
-                placeholder="Ej: Fibra óptica"
-                className={styles.formInput}
-              />
-            </div>
-          </div>
-
+      <form onSubmit={savePlan} className={styles.planForm}>
+        <div className={styles.formGrid}>
           <div className={styles.formGroup}>
-            <label htmlFor="description">Descripción</label>
-            <textarea 
-              id="description"
-              value={description} 
-              onChange={e => setDescription(e.target.value)} 
-              placeholder="Describe las características del plan..."
-              className={styles.formTextarea}
-              rows={3}
+            <label htmlFor="name">Nombre del plan</label>
+            <input 
+              id="name"
+              value={name} 
+              onChange={e => setName(e.target.value)} 
+              placeholder="Ej: Plan Fibra Hogar"
+              className={styles.formInput}
             />
           </div>
 
-          <div className={styles.formActions}>
-            <button 
-              type="submit" 
-              className={`${styles.btn} ${styles.btnPrimary} ${saving ? styles.actionLoader : ''}`}
-              disabled={saving}
-            >
-              {!saving && (editingId ? "💾 Guardar cambios" : "➕ Crear plan")}
-              {saving && <span className={styles.loader}></span>}
-              {saving && "Guardando..."}
-            </button>
-            <button 
-              type="button" 
-              onClick={clearForm} 
-              className={`${styles.btn} ${styles.btnSecondary}`}
-              disabled={saving}
-            >
-              🔄 Limpiar
-            </button>
+          <div className={styles.formGroup}>
+            <label htmlFor="speed">Velocidad (Mbps)</label>
+            <input 
+              id="speed"
+              type="number" 
+              value={speed as any} 
+              onChange={e => setSpeed(e.target.value === "" ? "" : Number(e.target.value))} 
+              placeholder="Ej: 300"
+              className={styles.formInput}
+            />
           </div>
-        </form>
-      </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="price">Precio (S/)</label>
+            <input 
+              id="price"
+              type="number" 
+              step="0.01" 
+              value={price as any} 
+              onChange={e => setPrice(e.target.value === "" ? "" : Number(e.target.value))}
+              placeholder="Ej: 79.90" 
+              className={styles.formInput}
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="technology">Tecnología</label>
+            <input 
+              id="technology"
+              value={technology} 
+              onChange={e => setTechnology(e.target.value)} 
+              placeholder="Ej: Fibra óptica"
+              className={styles.formInput}
+            />
+          </div>
+        </div>
+
+        <div className={styles.formGroup}>
+          <label htmlFor="description">Descripción</label>
+          <textarea 
+            id="description"
+            value={description} 
+            onChange={e => setDescription(e.target.value)} 
+            placeholder="Describe las características del plan..."
+            className={styles.formTextarea}
+            rows={3}
+          />
+        </div>
+
+        <div className={styles.formActions}>
+          <button 
+            type="submit" 
+            className={`${styles.formButton} ${saving ? styles.actionLoader : ''}`}
+            disabled={saving}
+          >
+            {!saving && (editingId ? "💾 Guardar cambios" : "➕ Crear plan")}
+            {saving && <span className={styles.loader}></span>}
+            {saving && "Guardando..."}
+          </button>
+          <button 
+            type="button" 
+            onClick={clearForm} 
+            className={styles.formButton}
+            disabled={saving}
+          >
+            🔄 Limpiar
+          </button>
+        </div>
+      </form>
 
       <div className={styles.planListSection}>
         <h3 className={styles.sectionTitle}>
@@ -207,17 +201,17 @@ const EditarPlan: React.FC = () => {
 
         <div className={styles.planList}>
           {plans.map(p => (
-            <div key={p.id} className={styles.planCard}>
-              <div className={styles.planContent}>
-                <div className={styles.planHeader}>
-                  <h4 className={styles.planName}>{p.name}</h4>
-                  <span className={styles.planSpeed}>⚡ {p.speed_mbps} Mbps</span>
-                </div>
+            <div key={p.id} className={styles.card}>
+              <div className={styles.cardHeader}>
+                <span className={styles.planName}>{p.name}</span>
+                <span className={styles.planSpeed}>⚡ {p.speed_mbps} Mbps</span>
+              </div>
+              <div className={styles.cardBody}>
                 <div className={styles.planPrice}>S/ {p.price}</div>
                 {p.technology && <div className={styles.planDetail}><span>Tecnología:</span> {p.technology}</div>}
                 {p.description && <div className={styles.planDescription}>{p.description}</div>}
               </div>
-              <div className={styles.planActions}>
+              <div className={styles.cardActions}>
                 <button 
                   onClick={() => startEdit(p)} 
                   className={`${styles.btn} ${styles.btnEdit}`}

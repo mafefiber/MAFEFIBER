@@ -118,3 +118,8 @@
     font-size: 0.9rem;
     border: 1px solid rgba(76, 175, 80, 0.2);
 }
+.authLinks a {
+    display: block; /* Hace que cada enlace ocupe una línea completa */
+    margin-top: 0.5rem; /* Agrega un margen entre los enlaces */
+    text-align: center; /* Opcional: centra el texto */
+}

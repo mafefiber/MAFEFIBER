@@ -1,0 +1,49 @@
+---
+const { title = "Panel Admin" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header class="admin-header">
+      <nav>
+        <div class="logo"><a href="/">⚡ ADMIN</a></div>
+        <ul class="nav-links">
+          <li><a href="/admin">📊 Dashboard</a></li>
+          <li id="welcome-user"></li>
+          <li><a href="#" id="logout-link">🔒 Cerrar sesión</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main class="admin-main">
+      <slot />
+    </main>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Mostrar nombre de usuario
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const welcomeUser = document.getElementById('welcome-user');
+        if (user.full_name && welcomeUser) {
+          welcomeUser.textContent = `👋 Bienvenido, Administrador ${user.full_name}`;
+        }
+
+        // Logout
+        const logoutLink = document.getElementById('logout-link');
+        if (logoutLink) {
+          logoutLink.onclick = async function(e) {
+            e.preventDefault();
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '/';
+          };
+        }
+      });
+    </script>
+  </body>
+</html>

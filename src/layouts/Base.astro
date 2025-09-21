@@ -1,5 +1,8 @@
 ---
 const {title =  "MAFEFIBER"} = Astro.props
+const isAdmin = typeof window !== 'undefined' && JSON.parse(localStorage.getItem('user')  || '{}').id_admin;
+
+
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -22,12 +25,13 @@ const {title =  "MAFEFIBER"} = Astro.props
     <header>
 
         <nav>
-            <div class="logo">⚡ MAFEFIBER</div>
+            <div class="logo" ><a href="/">⚡ MAFEFIBER</a></div>
             <ul class="nav-links">
-                <li><a href="/login">Iniciar Sesion</a></li>
-                <li><a href="#inicio">🏠 Inicio</a></li>
-                <li><a href="#planes">💎 Planes</a></li>
+                <li id="welcome-user"></li>
+                <li><a href="/login" id="login-link">🔑 Iniciar Sesion</a></li>
+                <li><a href="/products">🛒 Productos</a></li>
                 <li><a href="#contacto">📞 Contacto</a></li>
+                <li id="logout-li" style="display:none;"><a href="#" id="logout-link">Cerrar sesión</a></li>
             </ul>
         </nav>
     </header>
@@ -75,5 +79,34 @@ const {title =  "MAFEFIBER"} = Astro.props
         <p>© 2025 MAFEFIBER - Fibra Sin Límites</p>
       </div>
     </footer>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const welcomeUser = document.getElementById('welcome-user');
+    const loginLink = document.getElementById('login-link');
+    const logoutLi = document.getElementById('logout-li');
+    if (welcomeUser) {
+      if (user && user.full_name) {
+        welcomeUser.textContent = `👋 Bienvenido, ${user.full_name}`;
+        if (loginLink) loginLink.style.display = 'none';
+        if (logoutLi) logoutLi.style.display = 'inline-block';
+      } else {
+        welcomeUser.textContent = '';
+        if (loginLink) loginLink.style.display = 'inline-block';
+        if (logoutLi) logoutLi.style.display = 'none';
+      }
+    }
+    // Logout
+    const logoutLink = document.getElementById('logout-link');
+    if (logoutLink) {
+      logoutLink.onclick = function(e) {
+        e.preventDefault();
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.href = '/login';
+      };
+    }
+  });
+</script>
 </body>
 </html>
