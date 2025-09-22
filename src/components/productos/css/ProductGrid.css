@@ -4,12 +4,13 @@
 
 /* === FONDO CYBERPUNK === */
 .cyberpunk-bg {
-  min-height: 100vh;
+  min-height: calc(100vh - 0px);
   background: linear-gradient(135deg, #1e1e2f, #2c2c3e, #3a3a4f);
   background-size: 400% 400%;
   animation: gradientAnimation 12s ease infinite;
   position: relative;
   overflow: hidden;
+  padding-top: 0 !important;
 }
 
 @keyframes gradientAnimation {
@@ -23,7 +24,8 @@
    ======================================================= */
 .header-glow {
   text-align: center;
-  padding: 3rem 1rem;
+  padding: 1.2rem 1rem 1.2rem 1rem;
+  margin-top: 2.5rem;
 }
 
 .section-title {
@@ -36,6 +38,7 @@
 }
 
 .glitch-text {
+  
   position: relative;
   color: #0ff;
   text-shadow: 0 0 5px #0ff,

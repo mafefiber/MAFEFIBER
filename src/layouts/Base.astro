@@ -1,47 +1,408 @@
 ---
-const {title =  "MAFEFIBER"} = Astro.props
-const isAdmin = typeof window !== 'undefined' && JSON.parse(localStorage.getItem('user')  || '{}').id_admin;
-
-
+const { title = "MAFEFIBER" } = Astro.props
+const isAdmin =
+  typeof window !== "undefined" &&
+  JSON.parse(localStorage.getItem("user") || "{}").id_admin;
 ---
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <link rel="icon" type="image/png" sizes="192x192" href="/img/logofinal.png">
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/img/logofinal.png" />
     <title>{title}</title>
-    <link rel="stylesheet" href="/style.css"/>
-    
-  
-</head>
-<body>
-    <!-- bacjgrounds -->
-     <div class ="animated-bg"></div>
-     <div class = "energy-waves" id="waves"></div>
-     <div class="light-particles" id="light-particles"></div>
+    <link rel="stylesheet" href="/style.css" />
+    <style>
+      /* === ESTILOS MEJORADOS PARA EL MENÚ HAMBURGUESA === */
+      
+      /* Header responsivo */
+        .hamburger {
+          display: flex;
+          margin-left: auto;
+          margin-right: 1.2rem;
+          align-self: flex-end;
+          position: static;
+          width: 40px;
+          height: 40px;
+        }
+        .nav-links {
+          display: none;
+        }
+        .mobile-menu {
+          display: block;
+        }
+        nav {
+          padding: 0.05rem 1rem;
+          min-height: 28px;
+          position: relative;
+        }
+        header {
+          min-height: 28px;
+        }
+        .logo a {
+          font-size: 1.15rem;
+        }
+        main {
+          margin-top: 56px !important;
+        }
+      .logo {
+        flex-shrink: 0;
+        z-index: 1001;
+      }
+      
+      .logo a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      
+      /* Botón hamburguesa mejorado */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 44px;
+        height: 44px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        z-index: 1001;
+        margin-left: 0;
+        position: static;
+      }
+      
+      .hamburger:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.5);
+        transform: scale(1.05);
+      }
+      
+      .hamburger:active {
+        transform: scale(0.95);
+      }
+      
+      /* Líneas del hamburguesa con animación */
+      .hamburger-line {
+        width: 22px;
+        height: 2.5px;
+        background: white;
+        margin: 3px 0;
+        transition: all 0.3s ease;
+        border-radius: 2px;
+      }
+      
+      /* Animación cuando está abierto */
+      .hamburger.active .hamburger-line:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      
+      .hamburger.active .hamburger-line:nth-child(2) {
+        opacity: 0;
+      }
+      
+      .hamburger.active .hamburger-line:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+      }
+      
+      /* Menú desktop */
+      .nav-links {
+        display: flex;
+        gap: 1.5rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      
+      .nav-links li a {
+        text-decoration: none;
+        color: white;
+        padding: 0.6rem 1.2rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+      
+      .nav-links li a:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-2px);
+      }
+      
+      /* Menú móvil mejorado */
+      .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: linear-gradient(135deg, rgba(17, 17, 17, 0.95), rgba(34, 34, 34, 0.95));
+        backdrop-filter: blur(20px);
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 80px 0 2rem 0;
+        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1000;
+        overflow-y: auto;
+      }
+      
+      .mobile-menu.open {
+        right: 0;
+      }
+      
+      .mobile-menu ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .mobile-menu li {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      
+      .mobile-menu li:last-child {
+        border-bottom: none;
+      }
+      
+      .mobile-menu li a {
+        display: block;
+        color: white;
+        text-decoration: none;
+        padding: 1.2rem 1.5rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+      
+      .mobile-menu li a:hover {
+        background: rgba(255, 255, 255, 0.1);
+        padding-left: 2rem;
+      }
+      
+      .mobile-menu li a:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 4px;
+        background: linear-gradient(180deg, #00f5ff, #0080ff);
+        transform: scaleY(0);
+        transition: transform 0.3s ease;
+      }
+      
+      .mobile-menu li a:hover:before {
+        transform: scaleY(1);
+      }
+      
+      /* Overlay para cerrar el menú */
+      .mobile-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+        z-index: 999;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      
+      .mobile-overlay.active {
+        opacity: 1;
+      }
+      
+      /* Estilos para welcome user en móvil */
+      #mobile-welcome-user {
+        background: rgba(0, 245, 255, 0.1);
+        border: 1px solid rgba(0, 245, 255, 0.3);
+        margin: 1rem;
+        border-radius: 8px;
+        padding: 0.5rem !important;
+      }
+      
+      #mobile-welcome-user:empty {
+        display: none;
+      }
+      
+      /* Media queries responsivos */
+      @media (max-width: 768px) {
+        .hamburger {
+          display: flex;
+          margin-left: auto;
+          margin-right: 1.2rem;
+          align-self: flex-end;
+          position: static;
+          width: 42px;
+          height: 42px;
+        }
+        
+        .nav-links {
+          display: none;
+        }
+        
+        .mobile-menu {
+          display: block;
+        }
+        
+        .hamburger {
+          display: flex;
+          margin-left: auto;
+          margin-right: 1.2rem;
+          align-self: flex-end;
+          position: static;
+          width: 36px;
+          height: 36px;
+        }
+        .nav-links {
+          display: none;
+        }
+        .mobile-menu {
+          display: block;
+        }
+        nav {
+          padding: 0.25rem 1.2rem 0.15rem 1.2rem;
+          min-height: 40px;
+          position: relative;
+        }
+        header {
+          min-height: 40px;
+        }
+        .logo a {
+          font-size: 1.45rem;
+        }
+        main {
+          margin-top: 40px !important;
+        }
+        .mobile-menu {
+          width: 100%;
+          right: -100%;
+        }
+        
+        .logo a {
+          font-size: 1.2rem;
+        }
+        
+        nav {
+          padding: 0.8rem 1rem;
+          min-height: 60px;
+        }
+        
+        .hamburger {
+          width: 40px;
+          height: 40px;
+        }
+        
+        .hamburger-line {
+          width: 18px;
+        }
+      }
+      
+      /* Desktop grande */
+      @media (min-width: 1200px) {
+        nav {
+          padding: 1.2rem 2rem;
+        }
+        
+        .logo a {
+          font-size: 1.6rem;
+        }
+      }
+      
+      /* Animaciones adicionales */
+      @keyframes slideInRight {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      
+      .mobile-menu li {
+        animation: slideInRight 0.3s ease forwards;
+        opacity: 0;
+      }
+      
+      .mobile-menu.open li:nth-child(1) { animation-delay: 0.1s; }
+      .mobile-menu.open li:nth-child(2) { animation-delay: 0.15s; }
+      .mobile-menu.open li:nth-child(3) { animation-delay: 0.2s; }
+      .mobile-menu.open li:nth-child(4) { animation-delay: 0.25s; }
+      .mobile-menu.open li:nth-child(5) { animation-delay: 0.3s; }
+    </style>
+  </head>
+  <body>
+    <!-- backgrounds -->
+    <div class="animated-bg"></div>
+    <div class="energy-waves" id="waves"></div>
+    <div class="light-particles" id="light-particles"></div>
 
-     <!-- header -->
+    <!-- Overlay para móvil -->
+    <div class="mobile-overlay" id="mobile-overlay"></div>
+
+    <!-- header -->
     <header>
-
-        <nav>
-            <div class="logo" ><a href="/">⚡ MAFEFIBER</a></div>
-            <ul class="nav-links">
-                <li id="welcome-user"></li>
-                <li><a href="/login" id="login-link">🔑 Iniciar Sesion</a></li>
-                <li><a href="/products">🛒 Productos</a></li>
-                <li><a href="#contacto">📞 Contacto</a></li>
-                <li id="logout-li" style="display:none;"><a href="#" id="logout-link">Cerrar sesión</a></li>
-            </ul>
-        </nav>
+      <nav>
+        <div class="logo"><a href="/">⚡ MAFEFIBER</a></div>
+        
+        <!-- Menú desktop -->
+        <ul class="nav-links">
+          <li id="welcome-user"></li>
+          <li><a href="/login" id="login-link">🔑 Iniciar Sesión</a></li>
+          <li><a href="/products">🛒 Productos</a></li>
+          <li><a href="#contacto">📞 Contacto</a></li>
+          <li id="logout-li" style="display: none">
+            <a href="#" id="logout-link">Cerrar sesión</a>
+          </li>
+        </ul>
+        
+        <!-- Botón hamburguesa mejorado -->
+        <button class="hamburger" id="hamburger-btn" aria-label="Abrir menú">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+        
+        <!-- Menú móvil -->
+        <div class="mobile-menu" id="mobile-menu">
+          <ul>
+            <li id="mobile-welcome-user"></li>
+            <li><a href="/login" id="mobile-login-link">🔑 Iniciar Sesión</a></li>
+            <li><a href="/products">🛒 Productos</a></li>
+            <li><a href="#contacto">📞 Contacto</a></li>
+            <li id="mobile-logout-li" style="display: none">
+              <a href="#" id="mobile-logout-link">Cerrar sesión</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </header>
 
-    <main>
-        <slot/>
+    <main style="margin-top: 80px;">
+      <slot />
     </main>
 
     <footer id="contacto">
-    <div class="footer-content">
+      <div class="footer-content">
         <div class="contact-grid">
           <div class="contact-card">
             <div class="contact-icon">📞</div>
@@ -59,54 +420,197 @@ const isAdmin = typeof window !== 'undefined' && JSON.parse(localStorage.getItem
             <div class="contact-icon">🌐</div>
             <h3>Síguenos en nuestras redes</h3>
             <div class="social-icons">
-              <a href="https://www.facebook.com/profile.php?id=61580218216883" target="_blank" rel="noopener" class="social-circle" aria-label="Facebook">
+              <a
+                href="https://www.facebook.com/profile.php?id=61580218216883"
+                target="_blank"
+                rel="noopener"
+                class="social-circle"
+                aria-label="Facebook"
+              >
                 <span>f</span>
               </a>
-              <a href="https://www.tiktok.com/@mafefiber" target="_blank" rel="noopener" class="social-circle" aria-label="TikTok" style="font-family: Arial, sans-serif;">
+              <a
+                href="https://www.tiktok.com/@mafefiber"
+                target="_blank"
+                rel="noopener"
+                class="social-circle"
+                aria-label="TikTok"
+                style="font-family: Arial, sans-serif"
+              >
                 <span>♪</span>
               </a>
             </div>
           </div>
           <div class="contact-card">
             <div class="contact-icon">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width:32px;height:32px;vertical-align:middle;" />
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                alt="WhatsApp"
+                style="width: 32px; height: 32px; vertical-align: middle"
+              />
             </div>
             <h3>WhatsApp</h3>
-            <p><a href="https://wa.me/51956025773?text=Buenas%2C%20le%20escribo%20porque%20vi%20su%20p%C3%A1gina%20y%20estoy%20interesado%20en%20contratar%20su%20servicio" target="_blank" rel="noopener" class="maps-link">Escríbenos por WhatsApp</a></p>
+            <p>
+              <a
+                href="https://wa.me/51956025773?text=Buenas%2C%20le%20escribo%20porque%20vi%20su%20p%C3%A1gina%20y%20estoy%20interesado%20en%20contratar%20su%20servicio"
+                target="_blank"
+                rel="noopener"
+                class="maps-link"
+                >Escríbenos por WhatsApp</a
+              >
+            </p>
             <p>Atención rápida</p>
           </div>
         </div>
         <p>© 2025 MAFEFIBER - Fibra Sin Límites</p>
       </div>
     </footer>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    const welcomeUser = document.getElementById('welcome-user');
-    const loginLink = document.getElementById('login-link');
-    const logoutLi = document.getElementById('logout-li');
-    if (welcomeUser) {
-      if (user && user.full_name) {
-        welcomeUser.textContent = `👋 Bienvenido, ${user.full_name}`;
-        if (loginLink) loginLink.style.display = 'none';
-        if (logoutLi) logoutLi.style.display = 'inline-block';
-      } else {
-        welcomeUser.textContent = '';
-        if (loginLink) loginLink.style.display = 'inline-block';
-        if (logoutLi) logoutLi.style.display = 'none';
-      }
-    }
-    // Logout
-    const logoutLink = document.getElementById('logout-link');
-    if (logoutLink) {
-      logoutLink.onclick = function(e) {
-        e.preventDefault();
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        window.location.href = '/login';
-      };
-    }
-  });
-</script>
-</body>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Usuario y login/logout en desktop
+        const user = JSON.parse(localStorage.getItem("user") || "{}");
+        const welcomeUser = document.getElementById("welcome-user");
+        const loginLink = document.getElementById("login-link");
+        const logoutLi = document.getElementById("logout-li");
+        
+        if (welcomeUser) {
+          if (user && user.full_name) {
+            welcomeUser.innerHTML = `<a style="color: white; text-decoration: none; cursor: default;">👋 Bienvenido, ${user.full_name}</a>`;
+            if (loginLink) loginLink.style.display = "none";
+            if (logoutLi) logoutLi.style.display = "inline-block";
+          } else {
+            welcomeUser.textContent = "";
+            if (loginLink) loginLink.style.display = "inline-block";
+            if (logoutLi) logoutLi.style.display = "none";
+          }
+        }
+        
+        const logoutLink = document.getElementById("logout-link");
+        if (logoutLink) {
+          logoutLink.onclick = function (e) {
+            e.preventDefault();
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            window.location.href = "/login";
+          };
+        }
+
+        // Elementos del menú móvil
+        const hamburgerBtn = document.getElementById("hamburger-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const mobileOverlay = document.getElementById("mobile-overlay");
+
+        // Verificar que todos los elementos existan
+        if (!hamburgerBtn || !mobileMenu || !mobileOverlay) {
+          console.warn("Elementos del menú móvil no encontrados");
+          return;
+        }
+
+        // Función para abrir/cerrar menú
+        function toggleMenu() {
+          if (!mobileMenu) return;
+          const isOpen = mobileMenu.classList.contains("open");
+          
+          if (isOpen) {
+            closeMenu();
+          } else {
+            openMenu();
+          }
+        }
+        
+        function openMenu() {
+          if (!mobileMenu || !mobileOverlay || !hamburgerBtn) return;
+          
+          mobileMenu.classList.add("open");
+          mobileOverlay.style.display = "block";
+          hamburgerBtn.classList.add("active");
+          document.body.style.overflow = "hidden"; // Prevenir scroll
+          
+          // Activar overlay después de un pequeño delay
+          setTimeout(() => {
+            if (mobileOverlay) {
+              mobileOverlay.classList.add("active");
+            }
+          }, 10);
+        }
+        
+        function closeMenu() {
+          if (!mobileMenu || !mobileOverlay || !hamburgerBtn) return;
+          
+          mobileMenu.classList.remove("open");
+          mobileOverlay.classList.remove("active");
+          hamburgerBtn.classList.remove("active");
+          document.body.style.overflow = ""; // Restaurar scroll
+          
+          // Ocultar overlay después de la transición
+          setTimeout(() => {
+            if (mobileMenu && !mobileMenu.classList.contains("open") && mobileOverlay) {
+              mobileOverlay.style.display = "none";
+            }
+          }, 300);
+        }
+
+        // Event listeners
+        hamburgerBtn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          toggleMenu();
+        });
+
+        // Cerrar menú al hacer click en el overlay
+        mobileOverlay.addEventListener("click", closeMenu);
+
+        // Cerrar menú al hacer click en un enlace del menú móvil
+        if (mobileMenu) {
+          const mobileLinks = mobileMenu.querySelectorAll("a");
+          mobileLinks.forEach(link => {
+            link.addEventListener("click", () => {
+              closeMenu();
+            });
+          });
+        }
+
+        // Cerrar menú con tecla Escape
+        document.addEventListener("keydown", function(e) {
+          if (e.key === "Escape" && mobileMenu && mobileMenu.classList.contains("open")) {
+            closeMenu();
+          }
+        });
+
+        // Usuario y login/logout en móvil
+        const mobileWelcomeUser = document.getElementById("mobile-welcome-user");
+        const mobileLoginLink = document.getElementById("mobile-login-link");
+        const mobileLogoutLi = document.getElementById("mobile-logout-li");
+        
+        if (mobileWelcomeUser) {
+          if (user && user.full_name) {
+            mobileWelcomeUser.innerHTML = `<a style="color: white; text-decoration: none; cursor: default; display: block; padding: 1.2rem 1.5rem;">👋 Bienvenido, ${user.full_name}</a>`;
+            if (mobileLoginLink) mobileLoginLink.style.display = "none";
+            if (mobileLogoutLi) mobileLogoutLi.style.display = "block";
+          } else {
+            mobileWelcomeUser.textContent = "";
+            if (mobileLoginLink) mobileLoginLink.style.display = "block";
+            if (mobileLogoutLi) mobileLogoutLi.style.display = "none";
+          }
+        }
+        
+        const mobileLogoutLink = document.getElementById("mobile-logout-link");
+        if (mobileLogoutLink) {
+          mobileLogoutLink.onclick = function (e) {
+            e.preventDefault();
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            window.location.href = "/login";
+          };
+        }
+
+        // Cerrar menú en redimensión de ventana
+        window.addEventListener("resize", function() {
+          if (window.innerWidth > 768 && mobileMenu && mobileMenu.classList.contains("open")) {
+            closeMenu();
+          }
+        });
+      });
+    </script>
+  </body>
 </html>
