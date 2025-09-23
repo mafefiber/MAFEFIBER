@@ -1662,7 +1662,10 @@ footer {
         transition: transform 0.3s ease;
       }
       
- 
+      .mobile-menu li a:hover:before {
+        transform: scaleY(1);
+      }
+      
       /* Overlay para cerrar el menú */
       .mobile-overlay {
         display: none;
@@ -1791,7 +1794,7 @@ footer {
         }
       }
       
-    .mobile-menu li {
+      .mobile-menu li {
         animation: slideInRight 0.3s ease forwards;
         opacity: 0;
       }
@@ -1809,28 +1812,4 @@ footer {
 
 .mobile-menu.open {
   right: 0 !important; /* Asegurar que se despliegue sin transición */
-}
-
-/* Eliminar todas las animaciones del menú hamburguesa */
-.hamburger {
-  transition: none !important; /* Sin animación */
-  backdrop-filter: none !important; /* Sin efectos visuales */
-}
-
-.hamburger:hover,
-.hamburger:active {
-  background: none !important;
-  border-color: inherit !important;
-  transform: none !important;
-}
-
-.hamburger-line {
-  transition: none !important; /* Sin animación */
-}
-
-.hamburger.active .hamburger-line:nth-child(1),
-.hamburger.active .hamburger-line:nth-child(2),
-.hamburger.active .hamburger-line:nth-child(3) {
-  transform: none !important;
-  opacity: 1 !important; /* Asegurar visibilidad constante */
 }
