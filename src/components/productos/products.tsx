@@ -47,7 +47,7 @@ const Products: React.FC = () => {
     setCurrentPage(page);
     setTimeout(() => {
       const firstCard = document.querySelector(".products-grid .product-card");
-      if (firstCard) firstCard.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (firstCard) firstCard.scrollIntoView({ behavior: "auto", block: "start" });
     }, 100);
   };
 
