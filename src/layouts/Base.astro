@@ -13,6 +13,21 @@ const isAdmin =
     <link rel="icon" type="image/png" sizes="192x192" href="/img/logofinal.png" />
     <title>{title}</title>
     <link rel="stylesheet" href="/style.css" />
+    <style>
+      @media (max-width: 600px) {
+        .animated-bg,
+        .energy-waves,
+        .light-particles {
+          opacity: 0.5 !important;
+          animation-duration: 2.5s !important;
+        }
+        .mobile-overlay,
+        .mobile-menu {
+          backdrop-filter: none !important;
+          background: rgba(0,0,0,0.85) !important;
+        }
+      }
+    </style>
   </head>
   <body>
     <!-- backgrounds -->
