@@ -42,7 +42,7 @@ const products: Product[] = [
     price: "S/ 249.00",
     specs: ["Resolución 4K", "WiFi integrado", "Control remoto incluido"],
     images: [
-      "https://m.media-amazon.com/images/G/30/kindle/journeys/3tK3ZGUGrjlHn16z/NzYyMjljZTUt._FMpng_AC_SY200_QL85_CB790444338_.jpg",
+      "https://www.samplesmusicales.com.pe/wp-content/uploads/2022/09/AVRPRO10081.webp",
       "https://imgmedia.larepublica.pe/640x371/larepublica/original/2024/04/26/662bce2ebebfa6382978b239.webp",
       "https://i.blogs.es/c8c5e0/amazon-fire-tv-1/450_1000.webp",
     ],
