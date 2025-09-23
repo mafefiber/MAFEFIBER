@@ -1813,3 +1813,15 @@ footer {
 .mobile-menu.open {
   right: 0 !important; /* Asegurar que se despliegue sin transición */
 }
+
+/* Eliminar animación del ícono del menú hamburguesa */
+.hamburger-line {
+  transition: none !important; /* Sin animación */
+}
+
+.hamburger.active .hamburger-line:nth-child(1),
+.hamburger.active .hamburger-line:nth-child(2),
+.hamburger.active .hamburger-line:nth-child(3) {
+  transform: none !important;
+  opacity: 1 !important; /* Asegurar visibilidad constante */
+}
