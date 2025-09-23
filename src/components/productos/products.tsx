@@ -16,6 +16,7 @@ const Products: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(9); // valor por defecto (escritorio)
+  const [isPageChanging, setIsPageChanging] = useState(false);
 
   useEffect(() => {
     axios.get<Product[]>(`${API_BASE}/products`)
@@ -29,7 +30,7 @@ const Products: React.FC = () => {
 
     const handleResize = () => {
       setProductsPerPage(getProductsPerPage());
-      setCurrentPage(1); // Opcional: vuelve a la primera página al cambiar tamaño
+      // Ya NO cambiamos la página a 1 aquí
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -42,12 +43,14 @@ const Products: React.FC = () => {
   const currentProducts = products.slice(indexOfFirst, indexOfLast);
   const totalPages = Math.ceil(products.length / productsPerPage);
 
-  // Scroll al primer producto de la nueva página al cambiar de página
+  // Scroll al primer producto de la nueva página al cambiar de página y mostrar loader
   const handlePageChange = (page: number) => {
+    setIsPageChanging(true);
     setCurrentPage(page);
     setTimeout(() => {
       const firstCard = document.querySelector(".products-grid .product-card");
       if (firstCard) firstCard.scrollIntoView({ behavior: "auto", block: "start" });
+      setIsPageChanging(false);
     }, 100);
   };
 
@@ -63,6 +66,11 @@ const Products: React.FC = () => {
           <p className="subtitle">Tecnología futurista al alcance de tus manos</p>
         </div>
 
+        {isPageChanging && (
+          <div className="page-loader">
+            Cambiando de página...
+          </div>
+        )}
         <div className="products-grid">
           {currentProducts.map((product, index) => (
             <ProductCard key={product.id} product={product} delay={index * 100} />
