@@ -1361,7 +1361,7 @@ footer {
     list-style: none;
     margin: 0;
     padding: 0;
-    transition: right 0.3s ease;
+
     z-index: 10000;
     overflow: hidden;
   }
@@ -1541,10 +1541,7 @@ footer {
         border-color: rgba(255, 255, 255, 0.5);
         transform: scale(1.05);
       }
-      
-      .hamburger:active {
-        transform: scale(0.95);
-      }
+ 
       
       /* Líneas del hamburguesa con animación */
       .hamburger-line {
@@ -1552,23 +1549,13 @@ footer {
         height: 2.5px;
         background: white;
         margin: 3px 0;
-        transition: all 0.3s ease;
+     
         border-radius: 2px;
       }
+   
       
-      /* Animación cuando está abierto */
-      .hamburger.active .hamburger-line:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-      }
-      
-      .hamburger.active .hamburger-line:nth-child(2) {
-        opacity: 0;
-      }
-      
-      .hamburger.active .hamburger-line:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px);
-      }
-      
+   
+   
       /* Menú desktop */
       .nav-links {
         display: flex;
@@ -1610,7 +1597,7 @@ footer {
         backdrop-filter: blur(20px);
         border-left: 1px solid rgba(255, 255, 255, 0.1);
         padding: 80px 0 2rem 0;
-        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
         z-index: 1000;
         overflow-y: auto;
       }
@@ -1641,7 +1628,7 @@ footer {
         text-decoration: none;
         padding: 1.2rem 1.5rem;
         font-weight: 500;
-        transition: all 0.3s ease;
+  
         position: relative;
       }
       
@@ -1659,31 +1646,14 @@ footer {
         width: 4px;
         background: linear-gradient(180deg, #00f5ff, #0080ff);
         transform: scaleY(0);
-        transition: transform 0.3s ease;
+      
       }
       
-      .mobile-menu li a:hover:before {
-        transform: scaleY(1);
-      }
+  
       
-      /* Overlay para cerrar el menú */
-      .mobile-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(5px);
-        z-index: 999;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      }
+ 
       
-      .mobile-overlay.active {
-        opacity: 1;
-      }
+ 
       
       /* Estilos para welcome user en móvil */
       #mobile-welcome-user {
@@ -1782,28 +1752,8 @@ footer {
         }
       }
       
-      /* Animaciones adicionales */
-      @keyframes slideInRight {
-        from {
-          transform: translateX(100%);
-          opacity: 0;
-        }
-        to {
-          transform: translateX(0);
-          opacity: 1;
-        }
-      }
+   
       
-      .mobile-menu li {
-        animation: slideInRight 0.3s ease forwards;
-        opacity: 0;
-      }
-      
-      .mobile-menu.open li:nth-child(1) { animation-delay: 0.1s; }
-      .mobile-menu.open li:nth-child(2) { animation-delay: 0.15s; }
-      .mobile-menu.open li:nth-child(3) { animation-delay: 0.2s; }
-      .mobile-menu.open li:nth-child(4) { animation-delay: 0.25s; }
-      .mobile-menu.open li:nth-child(5) { animation-delay: 0.3s; }
 
       /* Eliminar animación de transición en el menú hamburguesa */
 .mobile-menu {
