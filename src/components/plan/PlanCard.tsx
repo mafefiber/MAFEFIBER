@@ -4,7 +4,7 @@ import styles from "./css/PlanCard.module.css";
 
 function PlanCard({ name, price, speed_mbps, description, image_url }: Plan) {
   // Número de WhatsApp destino
-  const whatsappNumber = "956 025 773"; // Cambia por el número real
+  const whatsappNumber = "51956025773"; // Cambia por el número real
 
   // Mensaje personalizado
   const getWhatsappMessage = () => {
