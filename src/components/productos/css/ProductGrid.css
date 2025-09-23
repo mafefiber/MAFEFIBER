@@ -222,3 +222,46 @@
   border-color: #ff00ff;
   box-shadow: 0 0 10px #ff00ff;
 }
+
+/* PAGINACIÓN CYBERPUNK */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 2rem 0 1rem 0;
+}
+
+.pagination button {
+  background: linear-gradient(90deg, #ff00ff, #00fff7, #ff00ff);
+  background-size: 200%;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 10px #ff00ff44, 0 0 20px #00fff744;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+  outline: none;
+  position: relative;
+  z-index: 1;
+}
+
+.pagination button:hover:not(:disabled),
+.pagination button.active {
+  background: #1e1e2f;
+  color: #ff00ff;
+  border: 2px solid #00fff7;
+  box-shadow: 0 0 20px #00fff7, 0 0 40px #ff00ff;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #222;
+  color: #888;
+  box-shadow: none;
+  border: 2px solid #333;
+}
