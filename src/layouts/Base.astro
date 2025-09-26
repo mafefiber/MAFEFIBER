@@ -44,15 +44,7 @@ const isAdmin =
         <div class="logo"><a href="/">⚡ MAFEFIBER</a></div>
         
         <!-- Menú desktop -->
-        <ul class="nav-links">
-          <li id="welcome-user"></li>
-          <li><a href="/login" id="login-link">🔑 Iniciar Sesión</a></li>
-          <li><a href="/products">🛒 Productos</a></li>
-          <li><a href="#contacto">📞 Contacto</a></li>
-          <li id="logout-li" style="display: none">
-            <a href="#" id="logout-link">Cerrar sesión</a>
-          </li>
-        </ul>
+        <ul class="nav-links" id="main-nav-links"></ul>
         
         <!-- Botón hamburguesa mejorado -->
         <button class="hamburger" id="hamburger-btn" aria-label="Abrir menú">
@@ -63,15 +55,7 @@ const isAdmin =
         
         <!-- Menú móvil -->
         <div class="mobile-menu" id="mobile-menu">
-          <ul>
-            <li id="mobile-welcome-user"></li>
-            <li><a href="/login" id="mobile-login-link">🔑 Iniciar Sesión</a></li>
-            <li><a href="/products">🛒 Productos</a></li>
-            <li><a href="#contacto">📞 Contacto</a></li>
-            <li id="mobile-logout-li" style="display: none">
-              <a href="#" id="mobile-logout-link">Cerrar sesión</a>
-            </li>
-          </ul>
+          <ul id="mobile-nav-links"></ul>
         </div>
       </nav>
     </header>
@@ -147,32 +131,122 @@ const isAdmin =
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        // Usuario y login/logout en desktop
+        // Usuario y login/logout en desktop y móvil SOLO para admin
         const user = JSON.parse(localStorage.getItem("user") || "{}");
-        const welcomeUser = document.getElementById("welcome-user");
-        const loginLink = document.getElementById("login-link");
-        const logoutLi = document.getElementById("logout-li");
-        
-        if (welcomeUser) {
-          if (user && user.full_name) {
-            welcomeUser.innerHTML = `<a style="color: white; text-decoration: none; cursor: default;">👋 Bienvenido, ${user.full_name}</a>`;
-            if (loginLink) loginLink.style.display = "none";
-            if (logoutLi) logoutLi.style.display = "inline-block";
+        // Desktop nav
+        const navLinks = document.getElementById("main-nav-links");
+        if (navLinks) {
+          navLinks.innerHTML = "";
+          if (user && user.id_admin) {
+            // Saludo
+            const liSaludo = document.createElement("li");
+            liSaludo.innerHTML = `<a style='color: white; text-decoration: none; cursor: default;'>👋 Bienvenido, ${user.full_name || user.username || "Admin"}</a>`;
+            navLinks.appendChild(liSaludo);
+            // Dashboard admin
+            const liDash = document.createElement("li");
+            liDash.innerHTML = `<a href='/admin'>🏠 Dashboard</a>`;
+            navLinks.appendChild(liDash);
+            // Productos
+            const liProd = document.createElement("li");
+            liProd.innerHTML = `<a href='/products'>🛒 Productos</a>`;
+            navLinks.appendChild(liProd);
+            // Cerrar sesión
+            const liLogout = document.createElement("li");
+            liLogout.innerHTML = `<a href=\"#\" id=\"logout-link\">Cerrar sesión</a>`;
+            navLinks.appendChild(liLogout);
+          } else if (user && user.full_name) {
+            // No admin: saludo, productos, logout
+            const liSaludo = document.createElement("li");
+            liSaludo.innerHTML = `<a style='color: white; text-decoration: none; cursor: default;'>👋 Bienvenido, ${user.full_name || user.username || "Usuario"}</a>`;
+            navLinks.appendChild(liSaludo);
+            const liProd = document.createElement("li");
+            liProd.innerHTML = `<a href='/products'>🛒 Productos</a>`;
+            navLinks.appendChild(liProd);
+            const liLogout = document.createElement("li");
+            liLogout.innerHTML = `<a href=\"#\" id=\"logout-link\">Cerrar sesión</a>`;
+            navLinks.appendChild(liLogout);
           } else {
-            welcomeUser.textContent = "";
-            if (loginLink) loginLink.style.display = "inline-block";
-            if (logoutLi) logoutLi.style.display = "none";
+            // No logueado: iniciar sesión, productos y contacto
+            const liLogin = document.createElement("li");
+            liLogin.innerHTML = `<a href='/login' id='login-link'>🔑 Iniciar Sesión</a>`;
+            navLinks.appendChild(liLogin);
+            const liProd = document.createElement("li");
+            liProd.innerHTML = `<a href='/products'>🛒 Productos</a>`;
+            navLinks.appendChild(liProd);
+            const liContacto = document.createElement("li");
+            liContacto.innerHTML = `<a href='#contacto'>📞 Contacto</a>`;
+            navLinks.appendChild(liContacto);
           }
+          // Logout handler (para ambos casos)
+          setTimeout(() => {
+            const logoutLink = document.getElementById("logout-link");
+            if (logoutLink) {
+              logoutLink.onclick = function (e) {
+                e.preventDefault();
+                localStorage.removeItem("token");
+                localStorage.removeItem("user");
+                window.location.href = "/login";
+              };
+            }
+          }, 100);
         }
-        
-        const logoutLink = document.getElementById("logout-link");
-        if (logoutLink) {
-          logoutLink.onclick = function (e) {
-            e.preventDefault();
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            window.location.href = "/login";
-          };
+
+        // Menú móvil SOLO para admin
+        const mobileNavLinks = document.getElementById("mobile-nav-links");
+        if (mobileNavLinks) {
+          mobileNavLinks.innerHTML = "";
+          if (user && user.id_admin) {
+            // Saludo
+            const liSaludo = document.createElement("li");
+            liSaludo.innerHTML = `<a style='color: white; text-decoration: none; cursor: default; display: block; padding: 1.2rem 1.5rem;'>👋 Bienvenido, ${user.full_name || user.username || "Admin"}</a>`;
+            mobileNavLinks.appendChild(liSaludo);
+            // Dashboard admin
+            const liDash = document.createElement("li");
+            liDash.innerHTML = `<a href='/admin'>🏠 Dashboard</a>`;
+            mobileNavLinks.appendChild(liDash);
+            // Productos
+            const liProd = document.createElement("li");
+            liProd.innerHTML = `<a href='/products'>🛒 Productos</a>`;
+            mobileNavLinks.appendChild(liProd);
+            // Cerrar sesión
+            const liLogout = document.createElement("li");
+            liLogout.innerHTML = `<a href=\"#\" id=\"mobile-logout-link\">Cerrar sesión</a>`;
+            mobileNavLinks.appendChild(liLogout);
+          } else if (user && user.full_name) {
+            // No admin: saludo, productos, logout
+            const liSaludo = document.createElement("li");
+            liSaludo.innerHTML = `<a style='color: white; text-decoration: none; cursor: default; display: block; padding: 1.2rem 1.5rem;'>👋 Bienvenido, ${user.full_name || user.username || "Usuario"}</a>`;
+            mobileNavLinks.appendChild(liSaludo);
+            const liProd = document.createElement("li");
+            liProd.innerHTML = `<a href='/products'>🛒 Productos</a>`;
+            mobileNavLinks.appendChild(liProd);
+            const liLogout = document.createElement("li");
+            liLogout.innerHTML = `<a href=\"#\" id=\"mobile-logout-link\">Cerrar sesión</a>`;
+            mobileNavLinks.appendChild(liLogout);
+          } else {
+            // No logueado: iniciar sesión, productos y contacto
+            const liLogin = document.createElement("li");
+            liLogin.innerHTML = `<a href='/login' id='mobile-login-link'>🔑 Iniciar Sesión</a>`;
+            mobileNavLinks.appendChild(liLogin);
+            const liProd = document.createElement("li");
+            liProd.innerHTML = `<a href='/products'>🛒 Productos</a>`;
+            mobileNavLinks.appendChild(liProd);
+            const liContacto = document.createElement("li");
+            liContacto.innerHTML = `<a href='#contacto'>📞 Contacto</a>`;
+            mobileNavLinks.appendChild(liContacto);
+          }
+          // Logout handler (para ambos casos)
+          setTimeout(() => {
+            const mobileLogoutLink = document.getElementById("mobile-logout-link");
+            if (mobileLogoutLink) {
+              mobileLogoutLink.onclick = function (e) {
+                e.preventDefault();
+                localStorage.removeItem("token");
+                localStorage.removeItem("user");
+                window.location.href = "/login";
+              };
+            }
+          }, 100);
         }
 
         // Elementos del menú móvil

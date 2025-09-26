@@ -17,12 +17,33 @@ const Products: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(9); // valor por defecto (escritorio)
   const [isPageChanging, setIsPageChanging] = useState(false);
+  const [query, setQuery] = useState("");
+  const searchDebounce = React.useRef<number | null>(null);
 
   useEffect(() => {
-    axios.get<Product[]>(`${API_BASE}/products`)
-      .then(res => setProducts(res.data))
-      .catch(() => setProducts([]));
+    loadProducts();
+    return () => {
+      if (searchDebounce.current) window.clearTimeout(searchDebounce.current);
+    };
   }, []);
+
+  const loadProducts = async (q?: string) => {
+    try {
+      const url = q && q.trim() !== "" ? `${API_BASE}/products?search=${encodeURIComponent(q)}` : `${API_BASE}/products`;
+      const res = await axios.get<Product[]>(url);
+      setProducts(res.data);
+      setCurrentPage(1);
+    } catch (err) {
+      console.error('Error fetching products', err);
+      setProducts([]);
+    }
+  };
+
+  function handleSearchChange(value: string) {
+    setQuery(value);
+    if (searchDebounce.current) { window.clearTimeout(searchDebounce.current); searchDebounce.current = null; }
+    searchDebounce.current = window.setTimeout(() => { loadProducts(value); }, 350) as unknown as number;
+  }
 
   useEffect(() => {
     const getProductsPerPage = () => (window.innerWidth < 768 ? 3 : 9);
@@ -64,6 +85,19 @@ const Products: React.FC = () => {
             </span>
           </h1>
           <p className="subtitle">Tecnología futurista al alcance de tus manos</p>
+          <div className="search-row">
+            <input
+              className="search-input"
+              placeholder="Buscar por nombre o descripción..."
+              value={query}
+              onChange={e => handleSearchChange(e.target.value)}
+              aria-label="Buscar productos"
+            />
+            <div className="search-actions">
+              <button className="btn-search" onClick={() => loadProducts(query)}>Buscar</button>
+              <button className="btn-clear" onClick={() => { setQuery(''); loadProducts(); }}>Limpiar</button>
+            </div>
+          </div>
         </div>
 
         {isPageChanging && (

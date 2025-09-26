@@ -61,16 +61,28 @@
   font-size: 1.2rem;
 }
 
+/* Search row */
+.search-row { display:flex; gap:10px; justify-content:center; align-items:center; margin-top:12px; }
+.search-input { min-width:260px; max-width:520px; padding:8px 12px; border-radius:8px; border:1px solid rgba(255,255,255,0.06); background:rgba(0,0,0,0.35); color:#fff; }
+.search-actions { display:flex; gap:8px; }
+.btn-search, .btn-clear { padding:8px 12px; border-radius:8px; border:none; font-weight:700; cursor:pointer; }
+.btn-search { background: linear-gradient(90deg,#ff00ff,#00fff7); color:#111; }
+.btn-clear { background: rgba(255,255,255,0.06); color:#fff; }
+
 /* =======================================================
    GRID DE PRODUCTOS
    ======================================================= */
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  /* Keep cards a consistent max width so a single result doesn't stretch the card */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
   gap: 2rem;
   padding: 2rem;
   max-width: 1200px;
   margin: auto;
+  justify-content: center; /* center grid when few items */
+  justify-items: center; /* ensure each grid item is centered */
+  grid-auto-rows: 1fr; /* make rows equal height so cards align */
 }
 
 /* =======================================================
@@ -85,6 +97,13 @@
   box-shadow: 0 0 20px rgba(255, 0, 255, 0.3),
               0 0 40px rgba(0, 255, 255, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  /* Ensure consistent card height inside the grid so cards don't grow/shrink when there are few results */
+  min-height: 480px;
+  width: 100%;
+  max-width: 340px; /* cap width so single cards don't expand too wide */
+  box-sizing: border-box;
 }
 
 .product-card:hover {
@@ -95,15 +114,21 @@
 
 .product-image {
   width: 100%;
-  height: 220px;
-  object-fit: contain; /* 👈 asegura que no se corte */
-  background: #111; /* para que no se vea raro si la img no llena todo */
-  padding: 10px;
+  /* keep images compact so cards don't blow up when single result */
+  height: 160px;
+  max-height: 200px;
+  object-fit: cover; /* crop slightly to keep consistent size */
+  background: #111; /* fallback */
+  padding: 8px;
 }
 
 .product-content {
-  padding: 1.5rem;
+  padding: 1rem 1.25rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex: 1 1 auto; /* allow content to take remaining space without stretching image */
 }
 
 .product-name {
@@ -116,16 +141,26 @@
 .product-description {
   font-size: 1rem;
   color: #ddd;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+  /* prevent very long descriptions from expanding the card */
+  max-height: 3.6rem; /* ~3 lines */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .specs-list {
-  margin: 1rem 0;
+  margin: 0.6rem 0 0.6rem;
   padding: 0;
   list-style: none;
   color: #ccc;
   font-size: 0.9rem;
   text-align: left;
+  max-height: 6rem;
+  overflow: auto;
 }
 
 .spec-item {
@@ -264,4 +299,13 @@
   color: #888;
   box-shadow: none;
   border: 2px solid #333;
+}
+
+@media (max-width: 768px) {
+  .search-row { flex-direction:column; gap:8px; }
+  .search-actions { width:100%; display:flex; gap:8px; }
+  .btn-search, .btn-clear { width:100%; }
+  /* On small screens allow cards to size naturally to avoid huge min-heights */
+  .products-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .product-card { min-height: auto; max-width: 100%; }
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { API_BASE } from "../../api";
 import styles from "./css/EditarPlan.module.css";
@@ -20,6 +20,37 @@ const EditarPlan: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [deletingId, setDeletingId] = useState<number | null>(null);
+
+  // Toast (small confirmation banner)
+  const [toast, setToast] = useState<{ message: string; visible: boolean }>({ message: '', visible: false });
+  const toastTimerRef = useRef<number | null>(null);
+  const showToast = (message: string, duration = 3000) => {
+    console.log('[EditarPlan] showToast called with:', message, duration, 'existingTimer:', toastTimerRef.current);
+    if (toastTimerRef.current) {
+      window.clearTimeout(toastTimerRef.current as number);
+      toastTimerRef.current = null;
+    }
+    setToast({ message, visible: true });
+    const id = window.setTimeout(() => {
+      setToast({ message: '', visible: false });
+      toastTimerRef.current = null;
+    }, duration) as unknown as number;
+    toastTimerRef.current = id;
+  };
+
+  const hideToast = () => {
+    if (toastTimerRef.current) {
+      window.clearTimeout(toastTimerRef.current as number);
+      toastTimerRef.current = null;
+    }
+    setToast({ message: '', visible: false });
+  };
+
+  useEffect(() => {
+    return () => {
+      if (toastTimerRef.current) window.clearTimeout(toastTimerRef.current);
+    };
+  }, []);
 
   // Form
   const [editingId, setEditingId] = useState<number | null>(null);
@@ -46,6 +77,7 @@ const EditarPlan: React.FC = () => {
   // Cargar plan al formulario
   const startEdit = (p: Plan) => {
     setEditingId(p.id); setName(p.name || ""); setSpeed(p.speed_mbps ?? ""); setPrice(p.price ?? ""); setTechnology(p.technology ?? ""); setDescription(p.description ?? ""); window.scrollTo({ top: 0, behavior: "smooth" });
+    showToast('Plan cargado para editar');
   };
 
   // POST /plans o PUT /plans/:id
@@ -76,6 +108,7 @@ const EditarPlan: React.FC = () => {
       
       await loadPlans(); 
       clearForm();
+      showToast(editingId ? 'Cambios guardados correctamente' : 'Plan creado correctamente');
     } catch (err: any) { 
       setError(err?.response?.data?.error || "Error al guardar."); 
     } finally {
@@ -232,6 +265,12 @@ const EditarPlan: React.FC = () => {
           ))}
         </div>
       </div>
+      {/* Centered confirmation banner */}
+      {toast.visible && (
+        <div data-testid="plan-toast-banner" style={{ position: 'fixed', left: '50%', top: '18%', transform: 'translate(-50%, -18%)', background: '#27ae60', color: '#fff', padding: '1rem 1.25rem', borderRadius: 8, zIndex: 2147483647, fontWeight: 800, fontSize: '1.05rem', boxShadow: '0 12px 40px rgba(0,0,0,0.6)', textAlign: 'center' }}>
+          {toast.message}
+        </div>
+      )}
     </div>
   );
 };
