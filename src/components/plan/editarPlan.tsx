@@ -12,10 +12,12 @@ interface Plan {
   price: number;
   description?: string | null;
   technology?: string | null;
+  features?: string | null;
 }
 
 const EditarPlan: React.FC = () => {
   const [plans, setPlans] = useState<Plan[]>([]);
+  const [features, setFeatures] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
@@ -71,12 +73,12 @@ const EditarPlan: React.FC = () => {
   };
 
   const clearForm = () => {
-    setEditingId(null); setName(""); setSpeed(""); setPrice(""); setTechnology(""); setDescription(""); setError(null);
+  setEditingId(null); setName(""); setSpeed(""); setPrice(""); setTechnology(""); setDescription(""); setFeatures(""); setError(null);
   };
 
   // Cargar plan al formulario
   const startEdit = (p: Plan) => {
-    setEditingId(p.id); setName(p.name || ""); setSpeed(p.speed_mbps ?? ""); setPrice(p.price ?? ""); setTechnology(p.technology ?? ""); setDescription(p.description ?? ""); window.scrollTo({ top: 0, behavior: "smooth" });
+  setEditingId(p.id); setName(p.name || ""); setSpeed(p.speed_mbps ?? ""); setPrice(p.price ?? ""); setTechnology(p.technology ?? ""); setDescription(p.description ?? ""); setFeatures(p.features ?? ""); window.scrollTo({ top: 0, behavior: "smooth" });
     showToast('Plan cargado para editar');
   };
 
@@ -95,7 +97,8 @@ const EditarPlan: React.FC = () => {
       speed_mbps: Number(speed), 
       price: Number(price), 
       technology, 
-      description 
+      description,
+      features
     };
     
     setSaving(true);
@@ -200,6 +203,17 @@ const EditarPlan: React.FC = () => {
             placeholder="Describe las características del plan..."
             className={styles.formTextarea}
             rows={3}
+          />
+        </div>
+
+        <div className={styles.formGroup}>
+          <label htmlFor="features">Características (separadas por coma)</label>
+          <input
+            id="features"
+            value={features}
+            onChange={e => setFeatures(e.target.value)}
+            placeholder="Ej: Instalación gratuita, Router incluido, Soporte técnico"
+            className={styles.formInput}
           />
         </div>
 

@@ -2,11 +2,9 @@ import React from "react";
 import type { Plan } from "./PlanList";
 import styles from "./css/PlanCard.module.css";
 
-function PlanCard({ name, price, speed_mbps, description, image_url }: Plan) {
-  // Número de WhatsApp destino
-  const whatsappNumber = "51956025773"; // Cambia por el número real
+function PlanCard({ name, price, speed_mbps, description, image_url, features }: Plan) {
+  const whatsappNumber = "51956025773";
 
-  // Mensaje personalizado
   const getWhatsappMessage = () => {
     let msg = `Buenas, vengo por su página web y deseo contratar sus servicios de internet. 
 Plan: ${name}
@@ -21,6 +19,11 @@ Precio: S/ ${price}/mes`;
     const url = `https://wa.me/${whatsappNumber}?text=${getWhatsappMessage()}`;
     window.open(url, "_blank");
   };
+
+  // Procesar features desde la base de datos
+  const featureList = features
+    ? features.split(",").map((f: string) => f.trim()).filter((f: string) => f.length > 0)
+    : [];
 
   return (
     <div className={styles.card}>
@@ -38,10 +41,10 @@ Precio: S/ ${price}/mes`;
       <h3>S/ {price}/mes</h3>
       <h4>📡 {name}</h4>
       <ul className={styles.features}>
-        <li>🚀 Fibra óptica</li>
-        <li>⚡ Internet de alta velocidad</li>
-        <li>🆓 Instalación gratuita</li>
-        <li>🛠️ Soporte técnico de 8 AM a 8 PM</li>
+        {featureList.length > 0
+          ? featureList.map((f, i) => <li key={i}>{f}</li>)
+          : <li>No hay características registradas</li>
+        }
       </ul>
       {description && <p className={styles.desc}>📋 {description}</p>}
       <a

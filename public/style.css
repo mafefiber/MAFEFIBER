@@ -452,6 +452,40 @@ nav {
   height: 18px;
 }
 
+/* Cart SVG sizing: slightly bigger and bolder for visibility (adjustable) */
+#nav-cart svg#nav-cart-svg {
+  width: 34px !important;
+  height: 34px !important;
+  display: inline-block;
+}
+
+/* Position the badge over the SVG */
+.nav-cart-link { position: relative; }
+.nav-cart-link .cart-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: #e53935; /* red badge */
+  color: #fff;
+  min-width: 20px;
+  height: 20px;
+  line-height: 20px;
+  padding: 0 6px;
+  font-size: 0.75rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  transform-origin: center;
+}
+
+/* Temporary small notification above and slightly right of the cart icon */
+/* Make sure mobile keeps the badge in a good place */
+@media (max-width: 480px) {
+  .nav-cart-link .cart-badge { top: 2px; right: 2px; min-width: 18px; height: 18px; line-height: 18px; font-size: 0.68rem; }
+}
+
 /* Hero Section Epic */
 .hero {
   min-height: calc(100vh - 72px);
@@ -1584,6 +1618,131 @@ footer {
         background: rgba(255, 255, 255, 0.1);
         transform: translateY(-2px);
       }
+
+    /* Cart styles (navbar) */
+    .nav-cart-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(10,10,10,0.95);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 10px;
+      transition: all 0.18s ease;
+      /* permanent gold background for the whole button */
+      background: linear-gradient(90deg, #fff7e6 0%, #ffd27a 30%, #ffb84d 70%, #ff9f1c 100%);
+      box-shadow: 0 6px 20px rgba(255,160,50,0.12);
+      position: relative;
+      z-index: 1;
+    }
+    /* SVG sits above the button background; keep it clean so the button's gold shows */
+    .nav-cart-link svg#nav-cart-svg {
+      position: relative;
+      z-index: 1;
+      background: transparent;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0;
+      display: inline-block;
+    }
+  /* Remove hover overlay for cart button (keep permanent gold background) */
+  .nav-cart-link:hover { transform: none; }
+
+    /* Photographic halo/glow behind the cart button */
+    .nav-cart-link::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 35%, rgba(255,245,220,0.9) 0%, rgba(255,200,120,0.42) 12%, rgba(255,160,60,0.12) 28%, rgba(255,160,50,0.04) 60%, transparent 100%);
+      filter: blur(5px);
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.85;
+    }
+
+    .cart-badge, .cart-badge-mobile {
+      background: linear-gradient(90deg,#ff4d7a,#ff005c);
+      color: #fff;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.85rem;
+      display: none;
+      vertical-align: middle;
+      box-shadow: 0 6px 18px rgba(255,0,100,0.14);
+    }
+
+  /* Helper to render larger SVG */
+  .nav-cart-svg-large { width: 34px; height: 34px; }
+
+    .cart-dropdown {
+      position: absolute;
+      right: 0;
+      top: 42px;
+      min-width: 320px;
+      max-width: 92vw;
+      background: rgba(24,26,32,0.98);
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 10px;
+      padding: 12px;
+      z-index: 60;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    }
+
+    .cart-items { max-height: 280px; overflow:auto; }
+    .cart-items div { padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.03); display:flex; justify-content:space-between; }
+    .cart-clear { background:#ff005c;color:#fff;border:none;padding:6px 10px;border-radius:6px;cursor:pointer; }
+    .cart-clear:hover { opacity:0.95; }
+
+    /* Mobile adjustments */
+    @media (max-width: 768px) {
+      .cart-dropdown { right: 8px; left: 8px; top: 58px; min-width: auto; }
+  .nav-cart-link { width: 44px; height: 44px; justify-content:center; border-radius:10px; padding:6px; box-shadow: 0 4px 14px rgba(255,160,50,0.10); }
+  .nav-cart-link svg#nav-cart-svg { padding: 0; }
+      .nav-cart-link span { display:none; }
+      .cart-badge-mobile { display: none; }
+  /* tablet: slightly smaller but still readable */
+  .nav-cart-svg-large { width: 30px; height: 30px; }
+  /* tablet: forced size */
+  #nav-cart svg#nav-cart-svg { width: 30px !important; height: 30px !important; }
+  .nav-cart-link .cart-badge { top: 4px; right: 6px; padding: 3px 6px; font-size: 0.7rem; }
+  .nav-cart-link::after { width: 56px; height: 56px; filter: blur(5px); }
+    }
+
+    @media (max-width: 420px) {
+      .cart-dropdown { top: 64px; padding:10px; }
+      .cart-items { max-height: 220px; }
+  /* extra small screens: keep icon legible */
+  .nav-cart-svg-large { width: 24px; height: 24px; }
+  #nav-cart svg#nav-cart-svg { width: 24px !important; height: 24px !important; }
+  .nav-cart-link { padding: 4px 8px; box-shadow: 0 3px 10px rgba(255,160,50,0.08); }
+  .nav-cart-link svg#nav-cart-svg { padding: 0; }
+  .nav-cart-link::after { width: 44px; height: 44px; filter: blur(4px); }
+    }
+
+    /* Cart SVG styling and animations */
+    .nav-cart-link svg#nav-cart-svg { display: inline-block; vertical-align: middle; transition: transform 220ms ease, filter 220ms ease; color: white; }
+    .nav-cart-link svg#nav-cart-svg path { transform-origin: center; }
+
+    .nav-cart-link.cart-pop svg#nav-cart-svg { transform: scale(1.12); filter: drop-shadow(0 8px 18px rgba(139,92,246,0.25)); }
+
+    @keyframes cartPulse {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.18); }
+      100% { transform: scale(1); }
+    }
+
+    .nav-cart-link.animate svg#nav-cart-svg { animation: cartPulse 360ms cubic-bezier(.2,.9,.3,1); }
+
+    /* Slight color change when items present */
+    .nav-cart-link.has-items svg#nav-cart-svg path { opacity: 1; }
+
+    /* (removed temporary notification styles) */
+
       
       /* Menú móvil mejorado */
       .mobile-menu {
@@ -1762,4 +1921,38 @@ footer {
 
 .mobile-menu.open {
   right: 0 !important; /* Asegurar que se despliegue sin transición */
+}
+
+/* ==========================================
+   Cart dropdown button overrides (last-resort)
+   These rules are intentionally specific and loaded at the
+   end of the stylesheet to avoid being overridden by global rules.
+   ========================================== */
+#cart-dropdown .cart-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  padding: 8px 12px !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(255,255,255,0.04) !important;
+  background: rgba(255,255,255,0.03) !important;
+  color: #e6f9f3 !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  transition: transform 140ms ease, box-shadow 160ms ease !important;
+}
+#cart-dropdown a.cart-btn { background: transparent !important; color: #00ffe7 !important; border: none !important; }
+#cart-dropdown .cart-buy.cart-btn { background: linear-gradient(90deg,#00e6c1,#0078ff) !important; color: #fff !important; box-shadow: 0 10px 34px rgba(0,120,255,0.14) !important; border: 1px solid rgba(0,120,255,0.08) !important; }
+#cart-dropdown .cart-buy.cart-btn:hover { background: linear-gradient(90deg,#00d4ae,#005fe6) !important; box-shadow: 0 14px 44px rgba(0,95,230,0.18) !important; transform: translateY(-3px) !important; }
+#cart-dropdown .cart-clear.cart-btn { background: linear-gradient(180deg,#ff4d6e,#ff2a4a) !important; color: #fff !important; border: 1px solid rgba(255,80,100,0.12) !important; box-shadow: 0 6px 18px rgba(255,50,80,0.12) !important; }
+#cart-dropdown .cart-clear.cart-btn:hover { background: linear-gradient(180deg,#ff2a4a,#e61a2e) !important; box-shadow: 0 10px 28px rgba(230,20,46,0.16) !important; }
+#cart-dropdown .cart-btn:hover { transform: translateY(-2px) !important; box-shadow: 0 12px 30px rgba(0,0,0,0.35) !important; }
+#cart-dropdown .cart-btn:focus { outline: 2px solid rgba(0,255,231,0.12) !important; outline-offset: 2px !important; }
+
+/* On narrow screens make buttons stack if they overflow */
+@media (max-width: 420px) {
+  #cart-dropdown .cart-footer-right { flex-wrap: wrap; gap: 8px !important; }
+  #cart-dropdown .cart-btn { flex: 1 1 auto !important; min-width: 0 !important; }
 }

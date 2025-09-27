@@ -187,3 +187,7 @@
   .searchActions { flex-direction:column; }
   .btnSearch, .btnClear { width:100%; }
 }
+.inactive {
+  opacity: 0.5;
+  pointer-events: auto;
+}

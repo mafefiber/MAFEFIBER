@@ -11,6 +11,7 @@ export interface Plan {
   price: number;
   description?: string | null;
   image_url?: string;
+  features?: string | null;
 }
 
 // Tipo para la respuesta de la galería

@@ -10,18 +10,29 @@ type Product = {
   price: string;
   specs: string[];
   images?: string[];
+  is_active: boolean;
 };
+
+type CartItem = Product & { quantity: number };
+
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(9); // valor por defecto (escritorio)
+  const [productsPerPage, setProductsPerPage] = useState(9);
   const [isPageChanging, setIsPageChanging] = useState(false);
   const [query, setQuery] = useState("");
+  const [cart, setCart] = useState<CartItem[]>([]);
+  
   const searchDebounce = React.useRef<number | null>(null);
 
   useEffect(() => {
     loadProducts();
+    // Cargar carrito desde localStorage (para que el botón funcione y sincronice con navbar)
+    try {
+      const stored = localStorage.getItem('cart');
+      if (stored) setCart(JSON.parse(stored));
+    } catch (e) { console.warn('No se pudo leer el carrito de localStorage', e); }
     return () => {
       if (searchDebounce.current) window.clearTimeout(searchDebounce.current);
     };
@@ -51,20 +62,38 @@ const Products: React.FC = () => {
 
     const handleResize = () => {
       setProductsPerPage(getProductsPerPage());
-      // Ya NO cambiamos la página a 1 aquí
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // No cart, checkout or related functions here anymore
 
-  // Paginación
+  // Carrito: solo agregar (el panel del carrito está en el navbar)
+  const addToCart = (product: Product) => {
+    setCart(prev => {
+      const next = prev.some(item => item.id === product.id)
+        ? prev.map(item => item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item)
+        : [...prev, { ...product, quantity: 1 }];
+      try { localStorage.setItem('cart', JSON.stringify(next)); } catch(e){}
+      window.dispatchEvent(new CustomEvent('cart-updated'));
+      // also dispatch an explicit open-cart request so the navbar can open the dropdown immediately
+      try {
+        window.dispatchEvent(new CustomEvent('open-cart'));
+        // extra fallback: dispatch again shortly after to avoid timing issues
+        setTimeout(() => { try { window.dispatchEvent(new CustomEvent('open-cart')); } catch(e){} }, 120);
+      } catch(e) {}
+      return next;
+    });
+  };
+
+  // Paginación solo para productos activos
+  const activeProducts = products.filter(p => p.is_active);
   const indexOfLast = currentPage * productsPerPage;
   const indexOfFirst = indexOfLast - productsPerPage;
-  const currentProducts = products.slice(indexOfFirst, indexOfLast);
-  const totalPages = Math.ceil(products.length / productsPerPage);
+  const currentProducts = activeProducts.slice(indexOfFirst, indexOfLast);
+  const totalPages = Math.ceil(activeProducts.length / productsPerPage);
 
-  // Scroll al primer producto de la nueva página al cambiar de página y mostrar loader
   const handlePageChange = (page: number) => {
     setIsPageChanging(true);
     setCurrentPage(page);
@@ -100,6 +129,8 @@ const Products: React.FC = () => {
           </div>
         </div>
 
+        {/* (carrito eliminado de esta vista) */}
+
         {isPageChanging && (
           <div className="page-loader">
             Cambiando de página...
@@ -107,7 +138,7 @@ const Products: React.FC = () => {
         )}
         <div className="products-grid">
           {currentProducts.map((product, index) => (
-            <ProductCard key={product.id} product={product} delay={index * 100} />
+            <ProductCard key={product.id} product={product} delay={index * 100} addToCart={addToCart} />
           ))}
         </div>
 
@@ -145,9 +176,10 @@ const Products: React.FC = () => {
 type ProductCardProps = {
   product: Product;
   delay: number;
+  addToCart: (product: Product) => void;
 };
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, delay }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, delay, addToCart }) => {
   const images = product.images && product.images.length > 0 ? product.images : [""];
   const [selectedImage, setSelectedImage] = useState(images[0]);
 
@@ -178,8 +210,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, delay }) => {
         <div className="price-section">
           <span className="product-price">S/ {product.price}</span>
         </div>
-        <button className="product-button">
-          <span>COMPRAR AHORA</span>
+        <button className="product-button" onClick={() => addToCart(product)}>
+          <span>AGREGAR AL CARRITO</span>
           <div className="button-scan"></div>
         </button>
       </div>

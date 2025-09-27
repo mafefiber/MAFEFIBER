@@ -12,9 +12,33 @@ interface Product {
   sku: string;
   stock_quantity: number;
   images: string[];
+  is_active: boolean;
 }
 
 const EditarProductos: React.FC = () => {
+  // Desactivar producto (no eliminar)
+  const desactivarProducto = async (id: number) => {
+    if (!window.confirm("¿Desactivar este producto?")) return;
+    try {
+      await axios.patch(`${API_BASE}/products/${id}/deactivate`);
+      showToast("Producto desactivado");
+      await loadProducts();
+    } catch {
+      showToast("Error al desactivar producto");
+    }
+  };
+
+  // Activar producto
+  const activarProducto = async (id: number) => {
+    if (!window.confirm("¿Activar este producto?")) return;
+    try {
+      await axios.patch(`${API_BASE}/products/${id}/activate`);
+      showToast("Producto activado");
+      await loadProducts();
+    } catch {
+      showToast("Error al activar producto");
+    }
+  };
   const [products, setProducts] = useState<Product[]>([]);
   const [query, setQuery] = useState<string>("");
   const searchDebounceRef = useRef<number | null>(null);
@@ -424,63 +448,66 @@ const EditarProductos: React.FC = () => {
                 const start = (page - 1) * ITEMS_PER_PAGE;
                 const paginated = products.slice(start, start + ITEMS_PER_PAGE);
                 return paginated.map(p => (
-                <div key={p.id} className={styles.card}>
-                  <div className={styles.cardHeader}>
-                    <span 
-                      className={styles.planName} 
-                      title={p.name}
-                      onClick={() => alert(`Nombre completo: ${p.name}`)}
-                    >
-                      {p.name}
-                    </span>
-                    <span className={styles.planSpeed}>S/ {p.price}</span>
-                  </div>
-                  
-                  <div className={styles.planDescription}>{p.description}</div>
-                  
-                  <div className={styles.skuStock}>
-                    SKU: {p.sku} | Stock: {p.stock_quantity}
-                  </div>
-                  
-                  {p.images && p.images.length > 0 && (
-                    <div className={styles.cardImages}>
-                      {p.images.map((img, i) => (
-                        <button 
-                          key={i} 
-                          className={styles.cardImgLink}
-                          onClick={() => openImageModal(img)}
-                          title="Haz clic para ampliar"
-                        >
-                          <img 
-                            src={img} 
-                            alt={`Imagen ${i + 1} de ${p.name}`} 
-                            className={styles.cardImg} 
-                            onError={e => (e.currentTarget.style.display = 'none')} 
-                          />
-                        </button>
-                      ))}
+                  <div key={p.id} className={`${styles.card} ${p.is_active ? '' : styles.inactive}`}>
+                    <div className={styles.cardHeader}>
+                      <span 
+                        className={styles.planName} 
+                        title={p.name}
+                        onClick={() => alert(`Nombre completo: ${p.name}`)}
+                      >
+                        {p.name}
+                      </span>
+                      <span className={styles.planSpeed}>S/ {p.price}</span>
                     </div>
-                  )}
-                  
-                  <div className={styles.cardActions}>
-                    <button
-                      onClick={() => startEdit(p)}
-                      className={`${styles.btn} ${styles.btnEdit}`}
-                      disabled={deletingId === p.id}
-                    >
-                      ✏️ Editar
-                    </button>
-                    
-                    <button
-                      onClick={() => deleteProduct(p.id)}
-                      className={`${styles.btn} ${styles.btnDelete}`}
-                      disabled={deletingId === p.id}
-                    >
-                      {deletingId !== p.id && "🗑️ Eliminar"}
-                      {deletingId === p.id && "Eliminando..."}
-                    </button>
+                    <div className={styles.planDescription}>{p.description}</div>
+                    <div className={styles.skuStock}>
+                      SKU: {p.sku} | Stock: {p.stock_quantity}
+                    </div>
+                    {p.images && p.images.length > 0 && (
+                      <div className={styles.cardImages}>
+                        {p.images.map((img, i) => (
+                          <button 
+                            key={i} 
+                            className={styles.cardImgLink}
+                            onClick={() => openImageModal(img)}
+                            title="Haz clic para ampliar"
+                          >
+                            <img 
+                              src={img} 
+                              alt={`Imagen ${i + 1} de ${p.name}`} 
+                              className={styles.cardImg} 
+                              onError={e => (e.currentTarget.style.display = 'none')} 
+                            />
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                    <div className={styles.cardActions}>
+                      <button
+                        onClick={() => startEdit(p)}
+                        className={`${styles.btn} ${styles.btnEdit}`}
+                        disabled={deletingId === p.id}
+                      >
+                        ✏️ Editar
+                      </button>
+                      {p.is_active ? (
+                        <button
+                          onClick={() => desactivarProducto(p.id)}
+                          className={`${styles.btn} ${styles.btnDelete}`}
+                          disabled={deletingId === p.id}
+                        >
+                          {deletingId !== p.id ? "🗑️ Eliminar" : "Eliminando..."}
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => activarProducto(p.id)}
+                          className={`${styles.btn} ${styles.btnActivate}`}
+                        >
+                          🔓 Activar
+                        </button>
+                      )}
+                    </div>
                   </div>
-                </div>
                 ));
               })()}
             </div>
